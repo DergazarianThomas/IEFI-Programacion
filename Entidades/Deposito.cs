@@ -11,6 +11,7 @@ namespace CapaDatos
 		#region Atributos
 
 		private int idDeposito;
+		private int numeroDeposito;
 		private string nombreDeposito;
 		private string direccion;
 		private int idObra;
@@ -22,9 +23,10 @@ namespace CapaDatos
 		public Deposito()
 		{ }
 
-		public Deposito(int IdDeposito, string NombreDeposito, string Direccion, int IdObra)
+		public Deposito(int IdDeposito,int NumeroDeposito, string NombreDeposito, string Direccion, int IdObra)
 		{
 			this.idDeposito = IdDeposito;
+			this.numeroDeposito = NumeroDeposito;
 			this.nombreDeposito = NombreDeposito;
 			this.direccion = Direccion;
 			this.idObra = IdObra;

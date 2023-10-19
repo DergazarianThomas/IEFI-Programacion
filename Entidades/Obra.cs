@@ -11,6 +11,7 @@ namespace CapaDatos
 		#region Atributos
 
 		private int idObra;
+		private int numeroObra;
 		private string nombreObra;
 		private string direccion;
 
@@ -21,9 +22,10 @@ namespace CapaDatos
 		public Obra()
 		{ }
 
-		public Obra(int IdObra, string NombreObra, string Direccion)
+		public Obra(int IdObra, int NumeroObra ,string NombreObra, string Direccion)
 		{
 			this.idObra = IdObra;
+			this.numeroObra = NumeroObra;
 			this.nombreObra = NombreObra;
 			this.direccion = Direccion;
 		}
@@ -38,6 +40,7 @@ namespace CapaDatos
 		#endregion
 
 		public int IdObra { get { return idObra; } set { idObra = value; } }
+		public int NumeroObra { get { return numeroObra; } set { numeroObra = value; } }
 		public string NombreObra { get { return nombreObra; } set { nombreObra = value; } }
 		public string Direccion { get { return direccion; } set { direccion = value; } }
 	}
