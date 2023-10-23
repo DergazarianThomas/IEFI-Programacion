@@ -274,6 +274,43 @@ namespace IEFI_programacion
             }
             LlenarCombos();
         }
+
+        private void btnBorrObra_Click(object sender, EventArgs e)
+        {
+
+            DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar la obra numero " + txtBorrObra.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resultado == DialogResult.Yes)
+            {
+                int nGrabados = -1;
+                NuevaObra = new Obra(int.Parse(txtBorrObra.Text));
+                nGrabados = objNegObras.abmObras("Borrar", NuevaObra);
+                LlenarDGVObras();
+                txtBorrObra.Text = "";
+
+            }
+
+        }
+
+        private void btnModfObra_Click(object sender, EventArgs e)
+        {
+            int nResultado = -1;
+            NuevaObra = new Obra(int.Parse(txtNumObra.Text), txtNombrObra.Text, txtDirecObra.Text, dtpFechaObra.Value);
+
+            nResultado = objNegObras.abmObras("Modificar", NuevaObra); //invoco a la capa de negocio
+
+            if (nResultado != 0 || nResultado != -1)
+            {
+                MessageBox.Show("La obra fue modificada con éxito", "Aviso");
+                LimpiarPantalla();
+                LlenarDGVObras();
+
+                txtNumObra.Enabled = true;
+
+            }
+            else
+                MessageBox.Show("Se produjo un error al intentar modificar el celular", "Error");
+        }
+
     }
     
 }
