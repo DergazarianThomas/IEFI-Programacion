@@ -22,5 +22,12 @@ namespace CapaNegocios
 			return DatosObjObras.listadoObras(cual);
 		}
 
-	}
+        public List<Obra> ObtenerObras()
+        {
+
+            return DatosObjObras.ObtenerObras();
+
+        }
+
+    }
 }

@@ -14,6 +14,7 @@ namespace CapaDatos
 		private int numeroObra;
 		private string nombreObra;
 		private string direccion;
+		private DateTime fechaCreacion;
 
 		#endregion
 
@@ -22,18 +23,27 @@ namespace CapaDatos
 		public Obra()
 		{ }
 
-		public Obra(int IdObra, int NumeroObra ,string NombreObra, string Direccion)
+		public Obra(int IdObra, int NumeroObra ,string NombreObra, string Direccion, DateTime FechaCreacion)
 		{
 			this.idObra = IdObra;
 			this.numeroObra = NumeroObra;
 			this.nombreObra = NombreObra;
 			this.direccion = Direccion;
+			this.fechaCreacion = FechaCreacion;
 		}
 
-		#endregion
+        public Obra(int NumeroObra, string NombreObra, string Direccion, DateTime FechaCreacion)
+        {
+            this.numeroObra = NumeroObra;
+            this.nombreObra = NombreObra;
+            this.direccion = Direccion;
+            this.fechaCreacion = FechaCreacion;
+        }
 
-		#region Metodos
-		public void Cargar()
+        #endregion
+
+        #region Metodos
+        public void Cargar()
 		{
 
 		}
@@ -43,5 +53,6 @@ namespace CapaDatos
 		public int NumeroObra { get { return numeroObra; } set { numeroObra = value; } }
 		public string NombreObra { get { return nombreObra; } set { nombreObra = value; } }
 		public string Direccion { get { return direccion; } set { direccion = value; } }
-	}
+        public DateTime FechaCreacion { get { return fechaCreacion; } set { fechaCreacion = value; } }
+    }
 }

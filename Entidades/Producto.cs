@@ -14,7 +14,7 @@ namespace CapaDatos
 		private int codigo;
 		private string nombreProducto;
 		private string descripcion;
-		private int estado;
+		private bool estado;
 		private int cantidad;
 		private int idDeposito;
 
@@ -25,7 +25,7 @@ namespace CapaDatos
 		public Producto()
 		{ }
 
-		public Producto(int IdProducto, int Codigo, string NombreProducto, string Descripcion, int Estado, int Cantidad, int IdDeposito)
+		public Producto(int IdProducto, int Codigo, string NombreProducto, string Descripcion, bool Estado, int Cantidad, int IdDeposito)
 		{
 			this.idProducto = IdProducto;
 			this.codigo = Codigo;
@@ -49,7 +49,7 @@ namespace CapaDatos
 		public int Codigo { get { return codigo; } set { codigo = value; } }
 		public string NombreProducto { get { return nombreProducto; } set { nombreProducto = value; } }
 		public string Descripcion { get { return descripcion; } set { descripcion = value; } }
-		public int Estado { get { return estado; } set { estado = value; } }
+		public bool Estado { get { return estado; } set { estado = value; } }
 		public int Cantidad { get { return cantidad; } set { cantidad = value; } }
 		public int IdDeposito { get { return idDeposito; } set { idDeposito = value; } }
 	}

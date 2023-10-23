@@ -21,5 +21,6 @@ namespace CapaNegocios
 			return DatosObjProductos.listadoProductos(cual);
 		}
 
-	}
+
+    }
 }

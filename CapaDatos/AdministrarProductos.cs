@@ -17,7 +17,7 @@ namespace CapaDatos
 			string orden = string.Empty; // para guardad consulta sql
 			if (accion == "Alta")
 			{
-				orden = $"insert into Productos (IdProducto, Codigo, NombreProducto, Descripcion, Estado, Cantidad) values ({objProducto.IdProducto}, {objProducto.Codigo}, '{objProducto.NombreProducto}', '{objProducto.Descripcion} ',{objProducto.Estado} , {objProducto.Cantidad});";
+				orden = $"insert into Productos (Codigo, NombreProducto, Descripcion, Estado, Cantidad) values ({objProducto.Codigo}, '{objProducto.NombreProducto}', '{objProducto.Descripcion} ',{objProducto.Estado} , {objProducto.Cantidad});";
 			}
 			
 
@@ -78,5 +78,7 @@ namespace CapaDatos
 			return ds;
 		}
 
-	}
+
+
+    }
 }

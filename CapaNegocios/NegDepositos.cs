@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CapaNegocios
 {
-	internal class NegDepositos
+	public class NegDepositos
 	{
 
 		AdministrarDepositos DatosObjDepositos = new AdministrarDepositos();
@@ -23,5 +23,12 @@ namespace CapaNegocios
 			return DatosObjDepositos.listadoDepositos(cual);
 		}
 
-	}
+        public List<Deposito> ObtenerDepositos()
+        {
+
+            return DatosObjDepositos.ObtenerDepositos();
+
+        }
+
+    }
 }

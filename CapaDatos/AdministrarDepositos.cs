@@ -78,5 +78,35 @@ namespace CapaDatos
 			return ds;
 		}
 
-	}
+        public List<Deposito> ObtenerDepositos()
+        {
+            List<Deposito> lista = new List<Deposito>();
+            string orden = "Select IdDeposito, NombreDeposito From Depositos";
+            OleDbCommand cmd = new OleDbCommand(orden, conexion);
+            OleDbDataReader dr;
+            try
+            {
+                Abrirconexion();
+                dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Deposito D = new Deposito();// instancio R como un objeto Rubro
+                    D.IdDeposito = dr.GetInt32(0); //se puede acceder a los campos
+                    D.NombreDeposito = dr.GetString(1);
+                    lista.Add(D);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al listar Depositos", e);
+            }
+            finally
+            {
+                Cerrarconexion();
+                cmd.Dispose();
+            }
+            return lista;
+        }
+
+    }
 }
