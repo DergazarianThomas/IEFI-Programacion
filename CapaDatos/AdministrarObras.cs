@@ -14,6 +14,7 @@ namespace CapaDatos
 		{
 			int resultado = -1;  // para controlar que se realize la operacion con exito
 			string orden = string.Empty; // para guardad consulta sql
+
 			if (accion == "Alta")
 			{
 				orden = $"insert into Obras (NumeroObra, NombreObra, Direccion, FechaCreacion) values ({objObra.NumeroObra}, '{objObra.NombreObra}','{objObra.Direccion}', '{objObra.FechaCreacion}' );";

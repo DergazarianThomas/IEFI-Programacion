@@ -136,9 +136,9 @@ namespace IEFI_programacion
             // 
             this.dgvObras.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(205)))), ((int)(((byte)(214)))));
             this.dgvObras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvObras.Location = new System.Drawing.Point(587, 70);
+            this.dgvObras.Location = new System.Drawing.Point(521, 70);
             this.dgvObras.Name = "dgvObras";
-            this.dgvObras.Size = new System.Drawing.Size(380, 451);
+            this.dgvObras.Size = new System.Drawing.Size(536, 451);
             this.dgvObras.TabIndex = 14;
             // 
             // panel2
@@ -148,7 +148,7 @@ namespace IEFI_programacion
             this.panel2.Controls.Add(this.btnBorrObra);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.txtBorrObra);
-            this.panel2.Location = new System.Drawing.Point(130, 434);
+            this.panel2.Location = new System.Drawing.Point(104, 427);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(320, 73);
             this.panel2.TabIndex = 13;
@@ -200,7 +200,7 @@ namespace IEFI_programacion
             this.panel1.Controls.Add(this.btnAgregarObra);
             this.panel1.Controls.Add(this.txtNombrObra);
             this.panel1.Controls.Add(this.txtDirecObra);
-            this.panel1.Location = new System.Drawing.Point(130, 87);
+            this.panel1.Location = new System.Drawing.Point(104, 80);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(320, 296);
             this.panel1.TabIndex = 12;

@@ -29,7 +29,7 @@ namespace IEFI_programacion
         {
             InitializeComponent();
             CrearDGVObras();
-            
+            LlenarDGVObras();
 
         }
 
@@ -42,7 +42,7 @@ namespace IEFI_programacion
             {
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    dgvObras.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString());
+                    dgvObras.Rows.Add(dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString());
                 }
             }
             else
@@ -58,9 +58,9 @@ namespace IEFI_programacion
 
 
             dgvObras.Columns[0].Width = 50;
-            dgvObras.Columns[1].Width = 100;
-            dgvObras.Columns[2].Width = 100;
-            dgvObras.Columns[3].Width = 100;
+            dgvObras.Columns[1].Width = 120;
+            dgvObras.Columns[2].Width = 202;
+            dgvObras.Columns[3].Width = 120;
         }
 
         void LlenarCombos()
