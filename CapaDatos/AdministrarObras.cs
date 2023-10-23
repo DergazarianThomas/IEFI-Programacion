@@ -22,11 +22,11 @@ namespace CapaDatos
 
 			if (accion == "Modificar")
 
-				orden = $"update Obras set NombreObra='{objObra.NombreObra}', Direccion='{objObra.Direccion}', FechaCreacion={objObra.FechaCreacion} WHERE IdObra Like '%{objObra.NumeroObra}%';";
+				orden = $"update Obras set NombreObra='{objObra.NombreObra}', Direccion='{objObra.Direccion}', FechaCreacion='{objObra.FechaCreacion}' WHERE NumeroObra = {objObra.NumeroObra};";
 
 
 			if (accion == "Borrar")
-				orden = "delete * from Obras where IdObra =" + objObra.NumeroObra + ";";
+				orden = "delete * from Obras where NumeroObra =" + objObra.NumeroObra + ";";
 
 
 			OleDbCommand cmd = new OleDbCommand(orden, conexion);
