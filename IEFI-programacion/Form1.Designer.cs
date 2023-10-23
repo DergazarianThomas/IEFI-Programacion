@@ -92,6 +92,9 @@ namespace IEFI_programacion
             this.txtDescrProd = new System.Windows.Forms.TextBox();
             this.dgvProd = new System.Windows.Forms.DataGridView();
             this.dSObraBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lblDepoCargado = new System.Windows.Forms.Label();
+            this.lblObrasCargadas = new System.Windows.Forms.Label();
+            this.lblProdCargados = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvObras)).BeginInit();
@@ -122,6 +125,7 @@ namespace IEFI_programacion
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(233)))), ((int)(((byte)(218)))));
+            this.tabPage1.Controls.Add(this.lblObrasCargadas);
             this.tabPage1.Controls.Add(this.dgvObras);
             this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.panel1);
@@ -311,6 +315,8 @@ namespace IEFI_programacion
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(233)))), ((int)(((byte)(218)))));
+            this.tabPage2.Controls.Add(this.lblDepoCargado);
             this.tabPage2.Controls.Add(this.cbxVerObra);
             this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.panel5);
@@ -322,12 +328,11 @@ namespace IEFI_programacion
             this.tabPage2.Size = new System.Drawing.Size(1102, 584);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Depositos";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // cbxVerObra
             // 
             this.cbxVerObra.FormattingEnabled = true;
-            this.cbxVerObra.Location = new System.Drawing.Point(148, 255);
+            this.cbxVerObra.Location = new System.Drawing.Point(682, 48);
             this.cbxVerObra.Name = "cbxVerObra";
             this.cbxVerObra.Size = new System.Drawing.Size(84, 21);
             this.cbxVerObra.TabIndex = 13;
@@ -337,7 +342,7 @@ namespace IEFI_programacion
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(7, 253);
+            this.label13.Location = new System.Drawing.Point(541, 49);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(135, 20);
             this.label13.TabIndex = 18;
@@ -350,7 +355,7 @@ namespace IEFI_programacion
             this.panel5.Controls.Add(this.btnBorrarDepo);
             this.panel5.Controls.Add(this.label12);
             this.panel5.Controls.Add(this.txtBorrDepo);
-            this.panel5.Location = new System.Drawing.Point(660, 13);
+            this.panel5.Location = new System.Drawing.Point(115, 311);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(320, 214);
             this.panel5.TabIndex = 17;
@@ -402,15 +407,15 @@ namespace IEFI_programacion
             this.panel6.Controls.Add(this.btnAgregarDepo);
             this.panel6.Controls.Add(this.txtNombrDepo);
             this.panel6.Controls.Add(this.txtDireccDepo);
-            this.panel6.Location = new System.Drawing.Point(28, 13);
+            this.panel6.Location = new System.Drawing.Point(26, 49);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(524, 214);
+            this.panel6.Size = new System.Drawing.Size(474, 214);
             this.panel6.TabIndex = 16;
             // 
             // cbxNumObra
             // 
             this.cbxNumObra.FormattingEnabled = true;
-            this.cbxNumObra.Location = new System.Drawing.Point(407, 91);
+            this.cbxNumObra.Location = new System.Drawing.Point(363, 90);
             this.cbxNumObra.Name = "cbxNumObra";
             this.cbxNumObra.Size = new System.Drawing.Size(84, 21);
             this.cbxNumObra.TabIndex = 12;
@@ -420,7 +425,7 @@ namespace IEFI_programacion
             this.label14.AutoSize = true;
             this.label14.BackColor = System.Drawing.Color.Transparent;
             this.label14.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(427, 68);
+            this.label14.Location = new System.Drawing.Point(383, 67);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(42, 20);
             this.label14.TabIndex = 11;
@@ -492,6 +497,7 @@ namespace IEFI_programacion
             this.btnAgregarDepo.TabIndex = 8;
             this.btnAgregarDepo.Text = "Agregar";
             this.btnAgregarDepo.UseVisualStyleBackColor = false;
+            this.btnAgregarDepo.Click += new System.EventHandler(this.btnAgregarDepo_Click);
             // 
             // txtNombrDepo
             // 
@@ -513,14 +519,15 @@ namespace IEFI_programacion
             // 
             this.dgvDepo.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(205)))), ((int)(((byte)(214)))));
             this.dgvDepo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDepo.Location = new System.Drawing.Point(9, 287);
+            this.dgvDepo.Location = new System.Drawing.Point(545, 82);
             this.dgvDepo.Name = "dgvDepo";
-            this.dgvDepo.Size = new System.Drawing.Size(1085, 284);
+            this.dgvDepo.Size = new System.Drawing.Size(547, 481);
             this.dgvDepo.TabIndex = 15;
             // 
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(233)))), ((int)(((byte)(218)))));
+            this.tabPage3.Controls.Add(this.lblProdCargados);
             this.tabPage3.Controls.Add(this.cbxVerDepo);
             this.tabPage3.Controls.Add(this.label18);
             this.tabPage3.Controls.Add(this.panel4);
@@ -771,6 +778,36 @@ namespace IEFI_programacion
             this.dgvProd.Size = new System.Drawing.Size(1085, 298);
             this.dgvProd.TabIndex = 0;
             // 
+            // lblDepoCargado
+            // 
+            this.lblDepoCargado.AutoSize = true;
+            this.lblDepoCargado.BackColor = System.Drawing.Color.Transparent;
+            this.lblDepoCargado.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDepoCargado.Location = new System.Drawing.Point(793, 46);
+            this.lblDepoCargado.Name = "lblDepoCargado";
+            this.lblDepoCargado.Size = new System.Drawing.Size(0, 20);
+            this.lblDepoCargado.TabIndex = 13;
+            // 
+            // lblObrasCargadas
+            // 
+            this.lblObrasCargadas.AutoSize = true;
+            this.lblObrasCargadas.BackColor = System.Drawing.Color.Transparent;
+            this.lblObrasCargadas.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblObrasCargadas.Location = new System.Drawing.Point(517, 33);
+            this.lblObrasCargadas.Name = "lblObrasCargadas";
+            this.lblObrasCargadas.Size = new System.Drawing.Size(0, 20);
+            this.lblObrasCargadas.TabIndex = 15;
+            // 
+            // lblProdCargados
+            // 
+            this.lblProdCargados.AutoSize = true;
+            this.lblProdCargados.BackColor = System.Drawing.Color.Transparent;
+            this.lblProdCargados.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProdCargados.Location = new System.Drawing.Point(473, 243);
+            this.lblProdCargados.Name = "lblProdCargados";
+            this.lblProdCargados.Size = new System.Drawing.Size(0, 20);
+            this.lblProdCargados.TabIndex = 21;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -782,6 +819,7 @@ namespace IEFI_programacion
             this.Text = "Gestionar Obras";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvObras)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -869,6 +907,9 @@ namespace IEFI_programacion
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox cbxVerDepo;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label lblObrasCargadas;
+        private System.Windows.Forms.Label lblDepoCargado;
+        private System.Windows.Forms.Label lblProdCargados;
     }
 }
 

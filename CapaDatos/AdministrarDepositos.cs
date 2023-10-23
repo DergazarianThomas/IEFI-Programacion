@@ -17,18 +17,18 @@ namespace CapaDatos
 			string orden = string.Empty; // para guardad consulta sql
 			if (accion == "Alta")
 			{
-				orden = $"insert into Depositos (IdDeposito, NombreDeposito, Direccion, IdObra) values ({objDeposito.IdDeposito},' {objDeposito.NombreDeposito}',' {objDeposito.Direccion}', {objDeposito.IdObra});";
+				orden = $"insert into Depositos ( NumeroDeposito, NombreDeposito, Direccion, IdObra) values ({objDeposito.NumeroDeposito},' {objDeposito.NombreDeposito}',' {objDeposito.Direccion}', {objDeposito.IdObra});";
 			}
 			
 
 			if (accion == "Modificar")
 				
 
-				orden = $"update Depositos set NombreDeposito='{objDeposito.NombreDeposito}', Direccion='{objDeposito.Direccion}',  WHERE IdDeposito Like '%{objDeposito.IdDeposito}%';";
+				orden = $"update Depositos set NombreDeposito='{objDeposito.NombreDeposito}', Direccion='{objDeposito.Direccion}',  WHERE NumeroDeposito Like '%{objDeposito.NumeroDeposito}%';";
 
 
 			if (accion == "Borrar")
-				orden = "delete * from Depositos where IdDeposito =" + objDeposito.IdDeposito + ";";
+				orden = "delete * from Depositos where NumeroDeposito =" + objDeposito.NumeroDeposito + ";";
 
 
 			OleDbCommand cmd = new OleDbCommand(orden, conexion);

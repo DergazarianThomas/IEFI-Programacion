@@ -22,15 +22,24 @@ namespace IEFI_programacion
 
         Obra NuevaObra;
         Obra ObraExistente;
+        Deposito NuevoDepo;
+        Deposito DepoExistente;
+        Producto NuevoProd;
+        Producto ProdExistente;
+
         public NegDepositos objNegDepositos = new NegDepositos();
         public NegObras objNegObras = new NegObras();
         public NegProductos objNegProds = new NegProductos();
+
         public Form1()
         {
             InitializeComponent();
-            CrearDGVObras();
-            LlenarDGVObras();
+            CrearDGVs();
 
+            LlenarDGVObras();
+            LlenarCombos();
+            LlenarDGVDepo();
+            LlenarDGVProd();
         }
 
         private void LlenarDGVObras()
@@ -46,10 +55,43 @@ namespace IEFI_programacion
                 }
             }
             else
-                MessageBox.Show("No hay Obras cargadas en el sistema");
+                lblObrasCargadas.Text = "No existen Obras cargados en el sistema";
         }
 
-        private void CrearDGVObras()
+        private void LlenarDGVDepo()
+        {
+            dgvDepo.Rows.Clear();
+            DataSet ds = new DataSet();
+            ds = objNegDepositos.listadoDepositos("Todos");
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    dgvDepo.Rows.Add(dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString());
+                }
+            }
+            else
+                lblDepoCargado.Text="No existen Depositos cargados en el sistema";
+        }
+
+        private void LlenarDGVProd()
+        {
+            dgvProd.Rows.Clear();
+            DataSet ds = new DataSet();
+            ds = objNegProds.listadoProductos("Todos");
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    dgvObras.Rows.Add(dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString());
+                }
+            }
+            else
+
+                lblProdCargados.Text = "No existen Productos cargados en el sistema";
+        }
+
+        private void CrearDGVs()
         {
             dgvObras.Columns.Add("0", "Numero");
             dgvObras.Columns.Add("1", "Nombre");
@@ -61,13 +103,50 @@ namespace IEFI_programacion
             dgvObras.Columns[1].Width = 120;
             dgvObras.Columns[2].Width = 202;
             dgvObras.Columns[3].Width = 120;
+
+            dgvDepo.Columns.Add("0", "Numero");
+            dgvDepo.Columns.Add("1", "Nombre");
+            dgvDepo.Columns.Add("2", "Direccion");
+            dgvDepo.Columns.Add("3", "Obra");
+
+            dgvDepo.Columns[0].Width = 50;
+            dgvDepo.Columns[1].Width = 120;
+            dgvDepo.Columns[2].Width = 202;
+            dgvDepo.Columns[3].Width = 120;
+
+            dgvProd.Columns.Add("0", "Codigo");
+            dgvProd.Columns.Add("1", "Nombre");
+            dgvProd.Columns.Add("2", "Descripcion");
+            dgvProd.Columns.Add("3", "Estado");
+            dgvProd.Columns.Add("4", "Cantidad");
+            dgvProd.Columns.Add("5", "Deposito");
+
+            dgvProd.Columns[0].Width = 50;
+            dgvProd.Columns[1].Width = 120;
+            dgvProd.Columns[2].Width = 220;
+            dgvProd.Columns[3].Width = 100;
+            dgvProd.Columns[4].Width = 100;
+            dgvProd.Columns[5].Width = 220;
         }
 
         void LlenarCombos()
-        { //llena un combo desde una lista con descripcion y código
-            cbxVerObra.DataSource = objNegObras.ObtenerObras(); // se define el origen con la Lista
-            cbxVerObra.DisplayMember = "NombreObra";
+        {
             cbxVerObra.ValueMember = "IdObra";
+            cbxVerObra.DisplayMember = "NombreObra";
+            cbxVerObra.DataSource = objNegObras.ObtenerObras();
+
+            cbxNumObra.ValueMember = "IdObra";
+            cbxNumObra.DisplayMember = "NombreObra";
+            cbxNumObra.DataSource = objNegObras.ObtenerObras();
+
+            cbxDepo.ValueMember = "IdDeposito";
+            cbxDepo.DisplayMember = "NombreDeposito";
+            cbxDepo.DataSource = objNegDepositos.ObtenerDepositos();
+
+            cbxVerDepo.ValueMember = "IdDeposito";
+            cbxVerDepo.DisplayMember = "NombreDeposito";
+            cbxVerDepo.DataSource = objNegDepositos.ObtenerDepositos();
+
         }
 
         private void btnAgregarObra_Click(object sender, EventArgs e)
@@ -79,7 +158,7 @@ namespace IEFI_programacion
 
                 //if (objNegCelular.listadoCelulares(txtCodigo.Text)== ){ }
 
-                if (ValidarCodigoUnico(int.Parse(txtNumObra.Text)) == true)
+                if (ValidarCodigoUnicoObras(int.Parse(txtNumObra.Text)) == true)
                 {
                     int nGrabados = -1;
 
@@ -89,11 +168,11 @@ namespace IEFI_programacion
 
                     if (nGrabados == -1)
                     {
-                        MessageBox.Show("No se pudo Cargar Celular en el sistema");
+                        MessageBox.Show("No se pudo cargar la obra en el sistema");
                     }
                     else
                     {
-                        MessageBox.Show("Se grabó con éxito el Celular.");
+                        MessageBox.Show("La obra se guardo con éxito.");
                         LlenarDGVObras();
                         LimpiarPantalla();
                     }
@@ -103,6 +182,7 @@ namespace IEFI_programacion
                     MessageBox.Show(ERROR_CODIGO);
                 }
             }
+            LlenarCombos();
         }
 
         private bool ValidarTabla(Control.ControlCollection ctrlCollection)
@@ -128,9 +208,21 @@ namespace IEFI_programacion
             return bandera;
         }
 
-        private bool ValidarCodigoUnico(int codigo)
+        private bool ValidarCodigoUnicoObras(int codigo)
         {
             foreach (DataGridViewRow row in dgvObras.Rows)
+            {
+                if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == codigo.ToString())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool ValidarCodigoUnicoDepo(int codigo)
+        {
+            foreach (DataGridViewRow row in dgvDepo.Rows)
             {
                 if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == codigo.ToString())
                 {
@@ -147,6 +239,42 @@ namespace IEFI_programacion
             txtDirecObra.Text = "";
         }
 
+        private void btnAgregarDepo_Click(object sender, EventArgs e)
+        {
+            if (!ValidarTabla(this.Controls))
+            {
+
+                int fila = 1;
+
+                //if (objNegCelular.listadoCelulares(txtCodigo.Text)== ){ }
+
+                if (ValidarCodigoUnicoDepo(int.Parse(txtNumrDeposito.Text)) == true)
+                {
+                    int nGrabados = -1;
+
+                    NuevoDepo = new Deposito(int.Parse(txtNumrDeposito.Text), txtNombrDepo.Text, txtDireccDepo.Text, Convert.ToInt32(cbxNumObra.SelectedValue) );
+
+                    nGrabados = objNegDepositos.abmDepositos("Alta", NuevoDepo);
+
+                    if (nGrabados == -1)
+                    {
+                        MessageBox.Show("No se pudo cargar el Deposito en el sistema");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El deposito se guardo con éxito.");
+                        LlenarDGVDepo();
+                        LimpiarPantalla();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(ERROR_CODIGO);
+                }
+            }
+            LlenarCombos();
+        }
     }
+    
 }
 

@@ -36,10 +36,20 @@ namespace CapaDatos
 			this.idDeposito = IdDeposito;
 		}
 
-		#endregion
+        public Producto(int Codigo, string NombreProducto, string Descripcion, bool Estado, int Cantidad, int IdDeposito)
+        {
+            this.codigo = Codigo;
+            this.nombreProducto = NombreProducto;
+            this.descripcion = Descripcion;
+            this.estado = Estado;
+            this.cantidad = Cantidad;
+            this.idDeposito = IdDeposito;
+        }
 
-		#region Metodos
-		public void Cargar()
+        #endregion
+
+        #region Metodos
+        public void Cargar()
 		{
 
 		}

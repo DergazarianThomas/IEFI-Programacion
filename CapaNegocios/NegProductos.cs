@@ -16,7 +16,7 @@ namespace CapaNegocios
 		{
 			return DatosObjProductos.abmProductos(accion, objCelular);
 		}
-		public DataSet listadoCelulares(string cual)
+		public DataSet listadoProductos(string cual)
 		{
 			return DatosObjProductos.listadoProductos(cual);
 		}
