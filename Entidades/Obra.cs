@@ -39,6 +39,10 @@ namespace CapaDatos
             this.direccion = Direccion;
             this.fechaCreacion = FechaCreacion;
         }
+        public Obra(int NumeroObra)
+        {
+            this.numeroObra = NumeroObra;
+        }
 
         #endregion
 

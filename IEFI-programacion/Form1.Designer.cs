@@ -166,6 +166,7 @@ namespace IEFI_programacion
             this.btnBorrObra.TabIndex = 10;
             this.btnBorrObra.Text = "Borrar";
             this.btnBorrObra.UseVisualStyleBackColor = false;
+            this.btnBorrObra.Click += new System.EventHandler(this.btnBorrObra_Click);
             // 
             // label4
             // 
@@ -247,6 +248,7 @@ namespace IEFI_programacion
             this.btnModfObra.TabIndex = 9;
             this.btnModfObra.Text = "Modificar";
             this.btnModfObra.UseVisualStyleBackColor = true;
+            this.btnModfObra.Click += new System.EventHandler(this.btnModfObra_Click);
             // 
             // label3
             // 
