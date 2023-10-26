@@ -13,8 +13,8 @@ namespace CapaDatos
 
 		public int abmProductos(string accion, Producto objProducto)
 		{
-			int resultado = -1;  // para controlar que se realize la operacion con exito
-			string orden = string.Empty; // para guardad consulta sql
+			int resultado = -1;  
+			string orden = string.Empty; 
 			if (accion == "Alta")
 			{
 				orden = $"insert into Productos (Codigo, NombreProducto, Descripcion, Estado, Cantidad, IdDeposito) values ({objProducto.Codigo}, '{objProducto.NombreProducto}', '{objProducto.Descripcion} ',{objProducto.Estado} , {objProducto.Cantidad});";

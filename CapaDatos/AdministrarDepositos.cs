@@ -13,8 +13,8 @@ namespace CapaDatos
 
 		public int abmDepositos(string accion, Deposito objDeposito)
 		{
-			int resultado = -1;  // para controlar que se realize la operacion con exito
-			string orden = string.Empty; // para guardad consulta sql
+			int resultado = -1;
+			string orden = string.Empty; 
 			if (accion == "Alta")
 			{
 				orden = $"insert into Depositos ( NumeroDeposito, NombreDeposito, Direccion, IdObra) values ({objDeposito.NumeroDeposito},' {objDeposito.NombreDeposito}',' {objDeposito.Direccion}', {objDeposito.IdObra});";
@@ -90,8 +90,8 @@ namespace CapaDatos
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    Deposito D = new Deposito();// instancio R como un objeto Rubro
-                    D.IdDeposito = dr.GetInt32(0); //se puede acceder a los campos
+                    Deposito D = new Deposito();
+                    D.IdDeposito = dr.GetInt32(0); 
                     D.NombreDeposito = dr.GetString(1);
                     lista.Add(D);
                 }

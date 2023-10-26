@@ -18,11 +18,12 @@ namespace IEFI_programacion
 {
     public partial class Form1 : Form
     {
-
+        #region errores
         const string ERROR_CODIGO = "Codigo repetido";
         const string ERROR_CAMPOS = "Llene los campos";
+        #endregion
 
-
+        #region inicializar
         Obra NuevaObra;
         Obra ObraExistente;
         Deposito NuevoDepo;
@@ -33,18 +34,23 @@ namespace IEFI_programacion
         public NegDepositos objNegDepositos = new NegDepositos();
         public NegObras objNegObras = new NegObras();
         public NegProductos objNegProds = new NegProductos();
+        #endregion
 
         public Form1()
         {
-            InitializeComponent();
-            CrearDGVs();
 
+            InitializeComponent();
+
+            #region iniciar_creacion_&_llenado_dgv
+            CrearDGVs();
             LlenarDGVObras();
             LlenarCombos();
             LlenarDGVDepo();
             LlenarDGVProd();
+            #endregion
         }
 
+        #region creacion_llenado_Dgvs
         private void LlenarDGVObras()
         {
             dgvObras.Rows.Clear();
@@ -95,7 +101,7 @@ namespace IEFI_programacion
 
                 lblProdCargados.Text = "No existen Productos cargados en el sistema";
         }
-
+        
         private void CrearDGVs()
         {
             dgvObras.Columns.Add("0", "Numero");
@@ -133,7 +139,9 @@ namespace IEFI_programacion
             dgvProd.Columns[4].Width = 100;
             dgvProd.Columns[5].Width = 220;
         }
+        #endregion
 
+        #region llenado_comboboxs
         void LlenarCombos()
         {
             cbxVerObra.ValueMember = "IdObra";
@@ -151,9 +159,10 @@ namespace IEFI_programacion
             cbxVerDepo.ValueMember = "IdDeposito";
             cbxVerDepo.DisplayMember = "NombreDeposito";
             cbxVerDepo.DataSource = objNegDepositos.ObtenerDepositos();
-
         }
+        #endregion
 
+        #region logica_botones
         private void btnAgregarObra_Click(object sender, EventArgs e)
         {
             if (!ValidarObra())
@@ -187,6 +196,98 @@ namespace IEFI_programacion
             LlenarCombos();
         }
 
+        private void btnAgregarDepo_Click(object sender, EventArgs e)
+        {
+            {
+                int fila = 1;
+
+                if (ValidarCodigoUnicoDepo(int.Parse(txtNumrDeposito.Text)) == true)
+                {
+                    int nGrabados = -1;
+
+                    NuevoDepo = new Deposito(int.Parse(txtNumrDeposito.Text), txtNombrDepo.Text, txtDireccDepo.Text, Convert.ToInt32(cbxNumObra.SelectedValue));
+
+                    nGrabados = objNegDepositos.abmDepositos("Alta", NuevoDepo);
+
+                    if (nGrabados == -1)
+                    {
+                        MessageBox.Show("No se pudo cargar el Deposito en el sistema");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El deposito se guardo con éxito.");
+                        LlenarDGVDepo();
+                        LimpiarPantalla();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(ERROR_CODIGO);
+                }
+            }
+            LlenarCombos();
+        }
+        private void btnBorrObra_Click(object sender, EventArgs e)
+        {
+            if (!validarBorrarObra())
+            {
+                if (ValidarCodigoUnicoObras(int.Parse(txtBorrObra.Text)))
+                {
+                    errorProvider1.SetError(txtBorrObra, "La obra no existe");
+                }
+                else
+                {
+                    DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar la obra numero " + txtBorrObra.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultado == DialogResult.Yes)
+                    {
+                        int nGrabados = -1;
+                        NuevaObra = new Obra(int.Parse(txtBorrObra.Text));
+                        nGrabados = objNegObras.abmObras("Borrar", NuevaObra);
+                        LlenarDGVObras();
+                        txtBorrObra.Text = "";
+
+                    }
+                    LlenarCombos();
+                    errorProvider1.Clear();
+                }
+            }
+
+        }
+
+        private void btnModfObra_Click(object sender, EventArgs e)
+        {
+            if (!ValidarObra())
+            {
+                if (ValidarCodigoUnicoObras(int.Parse(txtNumObra.Text)))
+                {
+                    errorProvider1.SetError(txtNumObra, "La obra no existe");
+                }
+                else
+                {
+                    int nResultado = -1;
+
+                    NuevaObra = new Obra(int.Parse(txtNumObra.Text), txtNombrObra.Text, txtDirecObra.Text, dtpFechaObra.Value);
+
+                    nResultado = objNegObras.abmObras("Modificar", NuevaObra); //invoco a la capa de negocio
+
+                    if (nResultado != 0 || nResultado != -1)
+                    {
+                        MessageBox.Show("La obra fue modificada con éxito", "Aviso");
+                        LimpiarPantalla();
+                        LlenarDGVObras();
+
+                        txtNumObra.Enabled = true;
+                    }
+                    else
+                        MessageBox.Show("Se produjo un error al intentar modificar el celular", "Error");
+                }
+            }
+
+        }
+
+        #endregion
+
+        #region validaciones
         private bool ValidarObra()
         {
             errorProvider1.Clear();
@@ -243,47 +344,14 @@ namespace IEFI_programacion
             return true;
         }
 
+
+
+        #endregion
         public void LimpiarPantalla()
         {
             txtNumObra.Text = "";
             txtNombrObra.Text = "";
             txtDirecObra.Text = "";
-        }
-
-        private void btnAgregarDepo_Click(object sender, EventArgs e)
-        {
-            //if (!ValidarTabla(this.Controls))
-            {
-
-                int fila = 1;
-
-                //if (objNegCelular.listadoCelulares(txtCodigo.Text)== ){ }
-
-                if (ValidarCodigoUnicoDepo(int.Parse(txtNumrDeposito.Text)) == true)
-                {
-                    int nGrabados = -1;
-
-                    NuevoDepo = new Deposito(int.Parse(txtNumrDeposito.Text), txtNombrDepo.Text, txtDireccDepo.Text, Convert.ToInt32(cbxNumObra.SelectedValue) );
-
-                    nGrabados = objNegDepositos.abmDepositos("Alta", NuevoDepo);
-
-                    if (nGrabados == -1)
-                    {
-                        MessageBox.Show("No se pudo cargar el Deposito en el sistema");
-                    }
-                    else
-                    {
-                        MessageBox.Show("El deposito se guardo con éxito.");
-                        LlenarDGVDepo();
-                        LimpiarPantalla();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(ERROR_CODIGO);
-                }
-            }
-            LlenarCombos();
         }
 
         private bool validarBorrarObra()
@@ -302,64 +370,6 @@ namespace IEFI_programacion
                 error = true;
             }
             return error;
-        }
-
-        private void btnBorrObra_Click(object sender, EventArgs e)
-        {
-            if (!validarBorrarObra())
-            {
-                if (ValidarCodigoUnicoObras(int.Parse(txtBorrObra.Text)))
-                {
-                    errorProvider1.SetError(txtBorrObra, "La obra no existe");
-                }
-                else
-                {
-                    DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar la obra numero " + txtBorrObra.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (resultado == DialogResult.Yes)
-                    {
-                        int nGrabados = -1;
-                        NuevaObra = new Obra(int.Parse(txtBorrObra.Text));
-                        nGrabados = objNegObras.abmObras("Borrar", NuevaObra);
-                        LlenarDGVObras();
-                        txtBorrObra.Text = "";
-
-                    }
-                    LlenarCombos();
-                    errorProvider1.Clear();
-                }
-            }
-            
-        }
-
-        private void btnModfObra_Click(object sender, EventArgs e)
-        {
-            if (!ValidarObra())
-            {
-                if (ValidarCodigoUnicoObras(int.Parse(txtNumObra.Text)))
-                {
-                    errorProvider1.SetError(txtNumObra, "La obra no existe");
-                }
-                else
-                {
-                    int nResultado = -1;
-
-                    NuevaObra = new Obra(int.Parse(txtNumObra.Text), txtNombrObra.Text, txtDirecObra.Text, dtpFechaObra.Value);
-
-                    nResultado = objNegObras.abmObras("Modificar", NuevaObra); //invoco a la capa de negocio
-
-                    if (nResultado != 0 || nResultado != -1)
-                    {
-                        MessageBox.Show("La obra fue modificada con éxito", "Aviso");
-                        LimpiarPantalla();
-                        LlenarDGVObras();
-
-                        txtNumObra.Enabled = true;
-                    }
-                    else
-                        MessageBox.Show("Se produjo un error al intentar modificar el celular", "Error");
-                }
-            }
-
         }
 
         private void cbxVerObra_SelectionChangeCommitted(object sender, EventArgs e)

@@ -12,9 +12,8 @@ namespace CapaDatos
 	{
         public int abmObras(string accion, Obra objObra)
 		{
-			int resultado = -1;  // para controlar que se realize la operacion con exito
-			string orden = string.Empty; // para guardad consulta sql
-
+			int resultado = -1;  
+			string orden = string.Empty; 
 			if (accion == "Alta")
 			{
 				orden = $"insert into Obras (NumeroObra, NombreObra, Direccion, FechaCreacion) values ({objObra.NumeroObra}, '{objObra.NombreObra}','{objObra.Direccion}', '{objObra.FechaCreacion}' );";
@@ -88,8 +87,8 @@ namespace CapaDatos
                 dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
-                    Obra O = new Obra();// instancio R como un objeto Rubro
-                    O.IdObra = dr.GetInt32(0); //se puede acceder a los campos con el tipo de dato, en este caso un entero
+                    Obra O = new Obra();
+                    O.IdObra = dr.GetInt32(0); 
                     O.NombreObra = dr.GetString(1);
                     lista.Add(O);
                 }
