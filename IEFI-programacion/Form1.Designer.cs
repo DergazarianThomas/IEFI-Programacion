@@ -33,6 +33,7 @@ namespace IEFI_programacion
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblObrasCargadas = new System.Windows.Forms.Label();
             this.dgvObras = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnBorrObra = new System.Windows.Forms.Button();
@@ -50,6 +51,7 @@ namespace IEFI_programacion
             this.txtNombrObra = new System.Windows.Forms.TextBox();
             this.txtDirecObra = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblDepoCargado = new System.Windows.Forms.Label();
             this.cbxVerObra = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -69,6 +71,7 @@ namespace IEFI_programacion
             this.txtDireccDepo = new System.Windows.Forms.TextBox();
             this.dgvDepo = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lblProdCargados = new System.Windows.Forms.Label();
             this.cbxVerDepo = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -92,9 +95,7 @@ namespace IEFI_programacion
             this.txtDescrProd = new System.Windows.Forms.TextBox();
             this.dgvProd = new System.Windows.Forms.DataGridView();
             this.dSObraBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.lblDepoCargado = new System.Windows.Forms.Label();
-            this.lblObrasCargadas = new System.Windows.Forms.Label();
-            this.lblProdCargados = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvObras)).BeginInit();
@@ -109,6 +110,7 @@ namespace IEFI_programacion
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dSObraBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -135,6 +137,16 @@ namespace IEFI_programacion
             this.tabPage1.Size = new System.Drawing.Size(1102, 584);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Obras";
+            // 
+            // lblObrasCargadas
+            // 
+            this.lblObrasCargadas.AutoSize = true;
+            this.lblObrasCargadas.BackColor = System.Drawing.Color.Transparent;
+            this.lblObrasCargadas.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblObrasCargadas.Location = new System.Drawing.Point(517, 33);
+            this.lblObrasCargadas.Name = "lblObrasCargadas";
+            this.lblObrasCargadas.Size = new System.Drawing.Size(0, 20);
+            this.lblObrasCargadas.TabIndex = 15;
             // 
             // dgvObras
             // 
@@ -269,6 +281,7 @@ namespace IEFI_programacion
             // 
             this.txtNumObra.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNumObra.Location = new System.Drawing.Point(162, 16);
+            this.txtNumObra.MaxLength = 3;
             this.txtNumObra.Name = "txtNumObra";
             this.txtNumObra.Size = new System.Drawing.Size(78, 24);
             this.txtNumObra.TabIndex = 0;
@@ -303,6 +316,7 @@ namespace IEFI_programacion
             // 
             this.txtNombrObra.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombrObra.Location = new System.Drawing.Point(162, 71);
+            this.txtNombrObra.MaxLength = 60;
             this.txtNombrObra.Name = "txtNombrObra";
             this.txtNombrObra.Size = new System.Drawing.Size(124, 24);
             this.txtNombrObra.TabIndex = 2;
@@ -311,6 +325,7 @@ namespace IEFI_programacion
             // 
             this.txtDirecObra.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDirecObra.Location = new System.Drawing.Point(162, 125);
+            this.txtDirecObra.MaxLength = 45;
             this.txtDirecObra.Name = "txtDirecObra";
             this.txtDirecObra.Size = new System.Drawing.Size(124, 24);
             this.txtDirecObra.TabIndex = 1;
@@ -331,6 +346,16 @@ namespace IEFI_programacion
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Depositos";
             // 
+            // lblDepoCargado
+            // 
+            this.lblDepoCargado.AutoSize = true;
+            this.lblDepoCargado.BackColor = System.Drawing.Color.Transparent;
+            this.lblDepoCargado.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDepoCargado.Location = new System.Drawing.Point(793, 46);
+            this.lblDepoCargado.Name = "lblDepoCargado";
+            this.lblDepoCargado.Size = new System.Drawing.Size(0, 20);
+            this.lblDepoCargado.TabIndex = 13;
+            // 
             // cbxVerObra
             // 
             this.cbxVerObra.FormattingEnabled = true;
@@ -338,6 +363,7 @@ namespace IEFI_programacion
             this.cbxVerObra.Name = "cbxVerObra";
             this.cbxVerObra.Size = new System.Drawing.Size(84, 21);
             this.cbxVerObra.TabIndex = 13;
+            this.cbxVerObra.SelectionChangeCommitted += new System.EventHandler(this.cbxVerObra_SelectionChangeCommitted);
             // 
             // label13
             // 
@@ -541,6 +567,16 @@ namespace IEFI_programacion
             this.tabPage3.Size = new System.Drawing.Size(1102, 584);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Productos";
+            // 
+            // lblProdCargados
+            // 
+            this.lblProdCargados.AutoSize = true;
+            this.lblProdCargados.BackColor = System.Drawing.Color.Transparent;
+            this.lblProdCargados.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProdCargados.Location = new System.Drawing.Point(473, 243);
+            this.lblProdCargados.Name = "lblProdCargados";
+            this.lblProdCargados.Size = new System.Drawing.Size(0, 20);
+            this.lblProdCargados.TabIndex = 21;
             // 
             // cbxVerDepo
             // 
@@ -780,35 +816,11 @@ namespace IEFI_programacion
             this.dgvProd.Size = new System.Drawing.Size(1085, 298);
             this.dgvProd.TabIndex = 0;
             // 
-            // lblDepoCargado
+            // errorProvider1
             // 
-            this.lblDepoCargado.AutoSize = true;
-            this.lblDepoCargado.BackColor = System.Drawing.Color.Transparent;
-            this.lblDepoCargado.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDepoCargado.Location = new System.Drawing.Point(793, 46);
-            this.lblDepoCargado.Name = "lblDepoCargado";
-            this.lblDepoCargado.Size = new System.Drawing.Size(0, 20);
-            this.lblDepoCargado.TabIndex = 13;
-            // 
-            // lblObrasCargadas
-            // 
-            this.lblObrasCargadas.AutoSize = true;
-            this.lblObrasCargadas.BackColor = System.Drawing.Color.Transparent;
-            this.lblObrasCargadas.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblObrasCargadas.Location = new System.Drawing.Point(517, 33);
-            this.lblObrasCargadas.Name = "lblObrasCargadas";
-            this.lblObrasCargadas.Size = new System.Drawing.Size(0, 20);
-            this.lblObrasCargadas.TabIndex = 15;
-            // 
-            // lblProdCargados
-            // 
-            this.lblProdCargados.AutoSize = true;
-            this.lblProdCargados.BackColor = System.Drawing.Color.Transparent;
-            this.lblProdCargados.Font = new System.Drawing.Font("Microsoft PhagsPa", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProdCargados.Location = new System.Drawing.Point(473, 243);
-            this.lblProdCargados.Name = "lblProdCargados";
-            this.lblProdCargados.Size = new System.Drawing.Size(0, 20);
-            this.lblProdCargados.TabIndex = 21;
+            this.errorProvider1.BlinkRate = 100;
+            this.errorProvider1.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider1.ContainerControl = this;
             // 
             // Form1
             // 
@@ -842,6 +854,7 @@ namespace IEFI_programacion
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dSObraBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
 		}
@@ -912,6 +925,7 @@ namespace IEFI_programacion
         private System.Windows.Forms.Label lblObrasCargadas;
         private System.Windows.Forms.Label lblDepoCargado;
         private System.Windows.Forms.Label lblProdCargados;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
 

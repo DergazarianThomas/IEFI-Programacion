@@ -51,9 +51,9 @@ namespace CapaDatos
 		{
 			string orden = string.Empty;
 			if (cual != "Todos")
-				orden = "select * from Obras where IdObras = " + int.Parse(cual) + ";";
+				orden = "select NumeroObra, NombreObra, Direccion, FechaCreacion from Obras where IdObras = " + int.Parse(cual) + ";";
 			else
-				orden = "select * from Obras;";
+				orden = "select NumeroObra, NombreObra, Direccion, FechaCreacion from Obras;";
 			OleDbCommand cmd = new OleDbCommand(orden, conexion);
 			DataSet ds = new DataSet();
 			OleDbDataAdapter da = new OleDbDataAdapter();

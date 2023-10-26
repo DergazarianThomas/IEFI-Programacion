@@ -5,11 +5,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CapaDatos;
 using CapaNegocios;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace IEFI_programacion
 {
@@ -51,7 +54,7 @@ namespace IEFI_programacion
             {
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    dgvObras.Rows.Add(dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString());
+                    dgvObras.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString());
                 }
             }
             else
@@ -60,19 +63,21 @@ namespace IEFI_programacion
 
         private void LlenarDGVDepo()
         {
+            lblDepoCargado.Text = "";
             dgvDepo.Rows.Clear();
             DataSet ds = new DataSet();
-            ds = objNegDepositos.listadoDepositos("Todos");
+            ds = objNegDepositos.listadoDepositos(Convert.ToString(cbxVerObra.SelectedValue));
             if (ds.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    dgvDepo.Rows.Add(dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString());
+                    dgvDepo.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString());
                 }
             }
             else
                 lblDepoCargado.Text="No existen Depositos cargados en el sistema";
         }
+
 
         private void LlenarDGVProd()
         {
@@ -83,7 +88,7 @@ namespace IEFI_programacion
             {
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    dgvObras.Rows.Add(dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString());
+                    dgvObras.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString());
                 }
             }
             else
@@ -151,12 +156,9 @@ namespace IEFI_programacion
 
         private void btnAgregarObra_Click(object sender, EventArgs e)
         {
-            if (!ValidarTabla(this.Controls))
+            if (!ValidarObra())
             {
-
                 int fila = 1;
-
-                //if (objNegCelular.listadoCelulares(txtCodigo.Text)== ){ }
 
                 if (ValidarCodigoUnicoObras(int.Parse(txtNumObra.Text)) == true)
                 {
@@ -185,27 +187,36 @@ namespace IEFI_programacion
             LlenarCombos();
         }
 
-        private bool ValidarTabla(Control.ControlCollection ctrlCollection)
+        private bool ValidarObra()
         {
-            bool bandera = false;
-
-            // Validar campos vacios para datagrid
-
-            foreach (Control ctrl in ctrlCollection)
+            errorProvider1.Clear();
+            bool error = false;
+            // Validar campos vacios
+            if (String.IsNullOrEmpty(txtNumObra.Text))
             {
-                if (ctrl is TextBoxBase)
-                {
-                    if (!ctrl.Text.Any())
-                    {
-                        bandera = true;
-
-                        MessageBox.Show(this, ERROR_CAMPOS, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                        break;
-                    };
-                }
+                errorProvider1.SetError(txtNumObra, "Debe enumerar su obra");
+                error = true;
             }
-            return bandera;
+
+            if (String.IsNullOrEmpty(txtNombrObra.Text))
+            {
+                errorProvider1.SetError(txtNombrObra, "Debe nombrar su obra");
+                error = true;
+            }
+
+            if (String.IsNullOrEmpty(txtDirecObra.Text))
+            {
+                errorProvider1.SetError(txtDirecObra, "Debe tener direccion");
+                error = true;
+            }
+
+            if ( Regex.IsMatch(txtNumObra.Text,"[^0-9]"))
+            {
+                errorProvider1.SetError(txtNumObra, "Deben ser solo numeros");
+                error = true;
+            }
+
+            return error;
         }
 
         private bool ValidarCodigoUnicoObras(int codigo)
@@ -241,7 +252,7 @@ namespace IEFI_programacion
 
         private void btnAgregarDepo_Click(object sender, EventArgs e)
         {
-            if (!ValidarTabla(this.Controls))
+            //if (!ValidarTabla(this.Controls))
             {
 
                 int fila = 1;
@@ -275,42 +286,86 @@ namespace IEFI_programacion
             LlenarCombos();
         }
 
-        private void btnBorrObra_Click(object sender, EventArgs e)
+        private bool validarBorrarObra()
         {
+            bool error = false;
 
-            DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar la obra numero " + txtBorrObra.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (resultado == DialogResult.Yes)
+            if (String.IsNullOrEmpty(txtBorrObra.Text))
             {
-                int nGrabados = -1;
-                NuevaObra = new Obra(int.Parse(txtBorrObra.Text));
-                nGrabados = objNegObras.abmObras("Borrar", NuevaObra);
-                LlenarDGVObras();
-                txtBorrObra.Text = "";
-
+                errorProvider1.SetError(txtBorrObra, "Se debe ingresar un valor");
+                error = true;
             }
 
+            if (Regex.IsMatch(txtBorrObra.Text, "[^0-9]"))
+            {
+                errorProvider1.SetError(txtBorrObra, "Debe ser un numero");
+                error = true;
+            }
+            return error;
+        }
+
+        private void btnBorrObra_Click(object sender, EventArgs e)
+        {
+            if (!validarBorrarObra())
+            {
+                if (ValidarCodigoUnicoObras(int.Parse(txtBorrObra.Text)))
+                {
+                    errorProvider1.SetError(txtBorrObra, "La obra no existe");
+                }
+                else
+                {
+                    DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar la obra numero " + txtBorrObra.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultado == DialogResult.Yes)
+                    {
+                        int nGrabados = -1;
+                        NuevaObra = new Obra(int.Parse(txtBorrObra.Text));
+                        nGrabados = objNegObras.abmObras("Borrar", NuevaObra);
+                        LlenarDGVObras();
+                        txtBorrObra.Text = "";
+
+                    }
+                    LlenarCombos();
+                    errorProvider1.Clear();
+                }
+            }
+            
         }
 
         private void btnModfObra_Click(object sender, EventArgs e)
         {
-            int nResultado = -1;
-            NuevaObra = new Obra(int.Parse(txtNumObra.Text), txtNombrObra.Text, txtDirecObra.Text, dtpFechaObra.Value);
-
-            nResultado = objNegObras.abmObras("Modificar", NuevaObra); //invoco a la capa de negocio
-
-            if (nResultado != 0 || nResultado != -1)
+            if (!ValidarObra())
             {
-                MessageBox.Show("La obra fue modificada con éxito", "Aviso");
-                LimpiarPantalla();
-                LlenarDGVObras();
+                if (ValidarCodigoUnicoObras(int.Parse(txtNumObra.Text)))
+                {
+                    errorProvider1.SetError(txtNumObra, "La obra no existe");
+                }
+                else
+                {
+                    int nResultado = -1;
 
-                txtNumObra.Enabled = true;
+                    NuevaObra = new Obra(int.Parse(txtNumObra.Text), txtNombrObra.Text, txtDirecObra.Text, dtpFechaObra.Value);
 
+                    nResultado = objNegObras.abmObras("Modificar", NuevaObra); //invoco a la capa de negocio
+
+                    if (nResultado != 0 || nResultado != -1)
+                    {
+                        MessageBox.Show("La obra fue modificada con éxito", "Aviso");
+                        LimpiarPantalla();
+                        LlenarDGVObras();
+
+                        txtNumObra.Enabled = true;
+                    }
+                    else
+                        MessageBox.Show("Se produjo un error al intentar modificar el celular", "Error");
+                }
             }
-            else
-                MessageBox.Show("Se produjo un error al intentar modificar el celular", "Error");
+
         }
 
+        private void cbxVerObra_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            LlenarDGVDepo();
+        }
     }
     
 }
