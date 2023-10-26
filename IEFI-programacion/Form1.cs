@@ -250,6 +250,7 @@ namespace IEFI_programacion
                     }
                     LlenarCombos();
                     errorProvider1.Clear();
+                    LlenarDGVDepo();
                 }
             }
 
