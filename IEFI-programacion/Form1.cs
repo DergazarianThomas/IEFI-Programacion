@@ -19,8 +19,13 @@ namespace IEFI_programacion
     public partial class Form1 : Form
     {
         #region errores
-        const string ERROR_CODIGO = "Codigo repetido";
-        const string ERROR_CAMPOS = "Llene los campos";
+        const string ERROR_NUM = "Numero repetido";
+        const string ERROR_SOLO_NUM = "Solo se admiten numeros";
+        const string ERROR_NUM_NEC = "Numero Necesario";
+        const string ERROR_NOM_NEC = "Nombre necesario";
+        const string ERROR_DIR_NEC = "Direccion necesaria";
+        const string ERROR_INEXISTENTE = "El elemento no existe";
+
         #endregion
 
         #region inicializar
@@ -188,10 +193,6 @@ namespace IEFI_programacion
                         LimpiarPantalla();
                     }
                 }
-                else
-                {
-                    MessageBox.Show(ERROR_CODIGO);
-                }
             }
             LlenarCombos();
         }
@@ -222,7 +223,7 @@ namespace IEFI_programacion
                 }
                 else
                 {
-                    MessageBox.Show(ERROR_CODIGO);
+                    MessageBox.Show(ERROR_NUM);
                 }
             }
             LlenarCombos();
@@ -233,7 +234,7 @@ namespace IEFI_programacion
             {
                 if (ValidarCodigoUnicoObras(int.Parse(txtBorrObra.Text)))
                 {
-                    errorProvider1.SetError(txtBorrObra, "La obra no existe");
+                    errorProvider1.SetError(txtBorrObra, ERROR_INEXISTENTE);
                 }
                 else
                 {
@@ -260,7 +261,7 @@ namespace IEFI_programacion
             {
                 if (ValidarCodigoUnicoObras(int.Parse(txtNumObra.Text)))
                 {
-                    errorProvider1.SetError(txtNumObra, "La obra no existe");
+                    errorProvider1.SetError(txtNumObra, ERROR_INEXISTENTE);
                 }
                 else
                 {
@@ -295,25 +296,25 @@ namespace IEFI_programacion
             // Validar campos vacios
             if (String.IsNullOrEmpty(txtNumObra.Text))
             {
-                errorProvider1.SetError(txtNumObra, "Debe enumerar su obra");
+                errorProvider1.SetError(txtNumObra, ERROR_NUM_NEC);
                 error = true;
             }
 
             if (String.IsNullOrEmpty(txtNombrObra.Text))
             {
-                errorProvider1.SetError(txtNombrObra, "Debe nombrar su obra");
+                errorProvider1.SetError(txtNombrObra, ERROR_NOM_NEC);
                 error = true;
             }
 
             if (String.IsNullOrEmpty(txtDirecObra.Text))
             {
-                errorProvider1.SetError(txtDirecObra, "Debe tener direccion");
+                errorProvider1.SetError(txtDirecObra, ERROR_DIR_NEC);
                 error = true;
             }
 
             if ( Regex.IsMatch(txtNumObra.Text,"[^0-9]"))
             {
-                errorProvider1.SetError(txtNumObra, "Deben ser solo numeros");
+                errorProvider1.SetError(txtNumObra, ERROR_SOLO_NUM);
                 error = true;
             }
 
@@ -344,9 +345,27 @@ namespace IEFI_programacion
             return true;
         }
 
+        private bool validarBorrarObra()
+        {
+            bool error = false;
 
+            if (String.IsNullOrEmpty(txtBorrObra.Text))
+            {
+                errorProvider1.SetError(txtBorrObra, ERROR_NUM_NEC);
+                error = true;
+            }
+
+            if (Regex.IsMatch(txtBorrObra.Text, "[^0-9]"))
+            {
+                errorProvider1.SetError(txtBorrObra, ERROR_SOLO_NUM);
+                error = true;
+            }
+            return error;
+        }
 
         #endregion
+
+
         public void LimpiarPantalla()
         {
             txtNumObra.Text = "";
@@ -354,24 +373,7 @@ namespace IEFI_programacion
             txtDirecObra.Text = "";
         }
 
-        private bool validarBorrarObra()
-        {
-            bool error = false;
-
-            if (String.IsNullOrEmpty(txtBorrObra.Text))
-            {
-                errorProvider1.SetError(txtBorrObra, "Se debe ingresar un valor");
-                error = true;
-            }
-
-            if (Regex.IsMatch(txtBorrObra.Text, "[^0-9]"))
-            {
-                errorProvider1.SetError(txtBorrObra, "Debe ser un numero");
-                error = true;
-            }
-            return error;
-        }
-
+        // evento para llenar dgvDeposito cuando combobox cambia
         private void cbxVerObra_SelectionChangeCommitted(object sender, EventArgs e)
         {
             LlenarDGVDepo();
