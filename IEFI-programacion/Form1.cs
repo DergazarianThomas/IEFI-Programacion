@@ -172,9 +172,11 @@ namespace IEFI_programacion
         {
             if (!ValidarObra())
             {
-                int fila = 1;
-
-                if (ValidarCodigoUnicoObras(int.Parse(txtNumObra.Text)) == true)
+                if (ValidarCodigoUnicoObras(int.Parse(txtNumObra.Text)) == false)
+                {
+                    errorProvider1.SetError(txtNumObra, ERROR_NUM);
+                }
+                else
                 {
                     int nGrabados = -1;
 
@@ -199,10 +201,13 @@ namespace IEFI_programacion
 
         private void btnAgregarDepo_Click(object sender, EventArgs e)
         {
+            if (!ValidarDeposito())
             {
-                int fila = 1;
-
-                if (ValidarCodigoUnicoDepo(int.Parse(txtNumrDeposito.Text)) == true)
+                if (ValidarCodigoUnicoDepo(int.Parse(txtNumrDeposito.Text)) == false)
+                {
+                    errorProvider1.SetError(txtNumrDeposito, ERROR_NUM);
+                }
+                else 
                 {
                     int nGrabados = -1;
 
@@ -220,10 +225,6 @@ namespace IEFI_programacion
                         LlenarDGVDepo();
                         LimpiarPantalla();
                     }
-                }
-                else
-                {
-                    MessageBox.Show(ERROR_NUM);
                 }
             }
             LlenarCombos();
@@ -329,7 +330,10 @@ namespace IEFI_programacion
                 if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == codigo.ToString())
                 {
                     return false;
+
+
                 }
+
             }
             return true;
         }
@@ -361,6 +365,38 @@ namespace IEFI_programacion
                 errorProvider1.SetError(txtBorrObra, ERROR_SOLO_NUM);
                 error = true;
             }
+            return error;
+        }
+
+        private bool ValidarDeposito()
+        {
+            errorProvider1.Clear();
+            bool error = false;
+            // Validar campos vacios
+            if (String.IsNullOrEmpty(txtNumrDeposito.Text))
+            {
+                errorProvider1.SetError(txtNumrDeposito, ERROR_NUM_NEC);
+                error = true;
+            }
+
+            if (String.IsNullOrEmpty(txtNombrDepo.Text))
+            {
+                errorProvider1.SetError(txtNombrDepo, ERROR_NOM_NEC);
+                error = true;
+            }
+
+            if (String.IsNullOrEmpty(txtDireccDepo.Text))
+            {
+                errorProvider1.SetError(txtDireccDepo, ERROR_DIR_NEC);
+                error = true;
+            }
+
+            if (Regex.IsMatch(txtNumrDeposito.Text, "[^0-9]"))
+            {
+                errorProvider1.SetError(txtNumObra, ERROR_SOLO_NUM);
+                error = true;
+            }
+
             return error;
         }
 

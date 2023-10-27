@@ -14,15 +14,15 @@ namespace CapaDatos
 		public int abmDepositos(string accion, Deposito objDeposito)
 		{
 			int resultado = -1;
-			string orden = string.Empty; 
+			string orden = string.Empty;
 			if (accion == "Alta")
 			{
 				orden = $"insert into Depositos ( NumeroDeposito, NombreDeposito, Direccion, IdObra) values ({objDeposito.NumeroDeposito},' {objDeposito.NombreDeposito}',' {objDeposito.Direccion}', {objDeposito.IdObra});";
 			}
-			
+
 
 			if (accion == "Modificar")
-				
+
 
 				orden = $"update Depositos set NombreDeposito='{objDeposito.NombreDeposito}', Direccion='{objDeposito.Direccion}',  WHERE NumeroDeposito Like '%{objDeposito.NumeroDeposito}%';";
 
@@ -52,7 +52,9 @@ namespace CapaDatos
 		public DataSet listadoDepositos(string cual)
 		{
 			string orden = string.Empty;
-			if (cual != "Todos")
+			if (cual =="")
+				orden = "select * from Depositos;";
+			else if (cual != "Todos")
                 orden = "select d.NumeroDeposito ,d.NombreDeposito ,d.Direccion ,o.NombreObra from Depositos d, Obras o where d.IdObra = " + int.Parse(cual) + " and d.IdObra = o.IdObra;";
             else
 				orden = "select * from Depositos;";
