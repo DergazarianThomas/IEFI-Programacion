@@ -42,6 +42,11 @@ namespace CapaDatos
 
         }
 
+		public Deposito(int NumeroDeposito)
+		{
+			this.numeroDeposito= NumeroDeposito;
+		}
+
         #endregion
 
         #region Metodos

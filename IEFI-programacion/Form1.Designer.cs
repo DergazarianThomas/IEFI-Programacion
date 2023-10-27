@@ -401,6 +401,7 @@ namespace IEFI_programacion
             this.btnBorrarDepo.TabIndex = 10;
             this.btnBorrarDepo.Text = "Borrar";
             this.btnBorrarDepo.UseVisualStyleBackColor = false;
+            this.btnBorrarDepo.Click += new System.EventHandler(this.btnBorrarDepo_Click);
             // 
             // label12
             // 
@@ -481,6 +482,7 @@ namespace IEFI_programacion
             this.btnModfDepo.TabIndex = 9;
             this.btnModfDepo.Text = "Modificar";
             this.btnModfDepo.UseVisualStyleBackColor = true;
+            this.btnModfDepo.Click += new System.EventHandler(this.btnModfDepo_Click);
             // 
             // label16
             // 

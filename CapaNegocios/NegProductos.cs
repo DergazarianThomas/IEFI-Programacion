@@ -12,9 +12,9 @@ namespace CapaNegocios
 	{
 		AdministrarProductos DatosObjProductos = new AdministrarProductos();
 
-		public int abmCelulares(string accion, Producto objCelular)
+		public int abmProductos(string accion, Producto objProducto)
 		{
-			return DatosObjProductos.abmProductos(accion, objCelular);
+			return DatosObjProductos.abmProductos(accion, objProducto);
 		}
 		public DataSet listadoProductos(string cual)
 		{

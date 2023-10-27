@@ -49,7 +49,8 @@ namespace IEFI_programacion
             #region iniciar_creacion_&_llenado_dgv
             CrearDGVs();
             LlenarDGVObras();
-            LlenarCombos();
+            LlenarCombosObra();
+            LlenarCombosDepo();
             LlenarDGVDepo();
             LlenarDGVProd();
             #endregion
@@ -147,7 +148,7 @@ namespace IEFI_programacion
         #endregion
 
         #region llenado_comboboxs
-        void LlenarCombos()
+        void LlenarCombosObra()
         {
             cbxVerObra.ValueMember = "IdObra";
             cbxVerObra.DisplayMember = "NombreObra";
@@ -157,6 +158,10 @@ namespace IEFI_programacion
             cbxNumObra.DisplayMember = "NombreObra";
             cbxNumObra.DataSource = objNegObras.ObtenerObras();
 
+            
+        }
+        void LlenarCombosDepo()
+        {
             cbxDepo.ValueMember = "IdDeposito";
             cbxDepo.DisplayMember = "NombreDeposito";
             cbxDepo.DataSource = objNegDepositos.ObtenerDepositos();
@@ -196,7 +201,7 @@ namespace IEFI_programacion
                     }
                 }
             }
-            LlenarCombos();
+            LlenarCombosObra();
         }
 
         private void btnAgregarDepo_Click(object sender, EventArgs e)
@@ -224,10 +229,12 @@ namespace IEFI_programacion
                         MessageBox.Show("El deposito se guardo con éxito.");
                         LlenarDGVDepo();
                         LimpiarPantalla();
+                        LlenarCombosDepo();
                     }
+                    
                 }
             }
-            LlenarCombos();
+            LlenarCombosDepo();
         }
         private void btnBorrObra_Click(object sender, EventArgs e)
         {
@@ -249,7 +256,7 @@ namespace IEFI_programacion
                         txtBorrObra.Text = "";
 
                     }
-                    LlenarCombos();
+                    LlenarCombosObra();
                     errorProvider1.Clear();
                     LlenarDGVDepo();
                 }
@@ -278,14 +285,73 @@ namespace IEFI_programacion
                         MessageBox.Show("La obra fue modificada con éxito", "Aviso");
                         LimpiarPantalla();
                         LlenarDGVObras();
+                        LlenarCombosObra();
 
                         txtNumObra.Enabled = true;
                     }
                     else
-                        MessageBox.Show("Se produjo un error al intentar modificar el celular", "Error");
+                        MessageBox.Show("Se produjo un error al intentar modificar la obra", "Error");
                 }
             }
 
+        }
+
+        private void btnModfDepo_Click(object sender, EventArgs e)
+        {
+            if (!ValidarDeposito())
+            {
+                if (ValidarCodigoUnicoDepo(int.Parse(txtNumrDeposito.Text)))
+                {
+                    errorProvider1.SetError(txtNumrDeposito, ERROR_INEXISTENTE);
+                }
+                else
+                {
+                    int nResultado = -1;
+
+                    NuevoDepo = new Deposito(int.Parse(txtNumrDeposito.Text), txtNombrDepo.Text, txtDireccDepo.Text, Convert.ToInt32(cbxNumObra.SelectedValue));
+
+                    nResultado = objNegDepositos.abmDepositos("Modificar", NuevoDepo); //invoco a la capa de negocio
+
+                    if (nResultado != 0 || nResultado != -1)
+                    {
+                        MessageBox.Show("El deposito fue modificado con éxito", "Aviso");
+                        LimpiarPantalla();
+                        LlenarDGVDepo();
+                        LlenarCombosDepo();
+
+                        txtNumrDeposito.Enabled = true;
+                    }
+                    else
+                        MessageBox.Show("Se produjo un error al intentar modificar el deposito", "Error");
+                }
+            }
+        }
+
+        private void btnBorrarDepo_Click(object sender, EventArgs e)
+        {
+            if (!validarBorrarDepo())
+            {
+                if (ValidarCodigoUnicoDepo(int.Parse(txtBorrDepo.Text)))
+                {
+                    errorProvider1.SetError(txtBorrDepo, ERROR_INEXISTENTE);
+                }
+                else
+                {
+                    DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar el deposito numero " + txtBorrDepo.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultado == DialogResult.Yes)
+                    {
+                        int nGrabados = -1;
+                        NuevoDepo = new Deposito(int.Parse(txtBorrDepo.Text));
+                        nGrabados = objNegDepositos.abmDepositos("Borrar", NuevoDepo);
+                        LlenarDGVDepo();
+                        txtBorrDepo.Text = "";
+
+                    }
+                    LlenarCombosDepo();
+                    errorProvider1.Clear();
+                    LlenarDGVProd();
+                }
+            }
         }
 
         #endregion
@@ -368,6 +434,24 @@ namespace IEFI_programacion
             return error;
         }
 
+        private bool validarBorrarDepo()
+        {
+            bool error = false;
+
+            if (String.IsNullOrEmpty(txtBorrDepo.Text))
+            {
+                errorProvider1.SetError(txtBorrDepo, ERROR_NUM_NEC);
+                error = true;
+            }
+
+            if (Regex.IsMatch(txtBorrDepo.Text, "[^0-9]"))
+            {
+                errorProvider1.SetError(txtBorrDepo, ERROR_SOLO_NUM);
+                error = true;
+            }
+            return error;
+        }
+
         private bool ValidarDeposito()
         {
             errorProvider1.Clear();
@@ -393,7 +477,7 @@ namespace IEFI_programacion
 
             if (Regex.IsMatch(txtNumrDeposito.Text, "[^0-9]"))
             {
-                errorProvider1.SetError(txtNumObra, ERROR_SOLO_NUM);
+                errorProvider1.SetError(txtNumrDeposito, ERROR_SOLO_NUM);
                 error = true;
             }
 
@@ -415,6 +499,8 @@ namespace IEFI_programacion
         {
             LlenarDGVDepo();
         }
+
+
     }
     
 }

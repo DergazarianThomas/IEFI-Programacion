@@ -24,7 +24,7 @@ namespace CapaDatos
 			if (accion == "Modificar")
 
 
-				orden = $"update Depositos set NombreDeposito='{objDeposito.NombreDeposito}', Direccion='{objDeposito.Direccion}',  WHERE NumeroDeposito Like '%{objDeposito.NumeroDeposito}%';";
+				orden = $"update Depositos set NombreDeposito='{objDeposito.NombreDeposito}', Direccion='{objDeposito.Direccion}', IdObra={objDeposito.IdObra}  WHERE NumeroDeposito Like '%{objDeposito.NumeroDeposito}%';";
 
 
 			if (accion == "Borrar")
