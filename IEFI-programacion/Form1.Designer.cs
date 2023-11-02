@@ -705,7 +705,6 @@ namespace IEFI_programacion
             this.txtCantProd.Name = "txtCantProd";
             this.txtCantProd.Size = new System.Drawing.Size(78, 24);
             this.txtCantProd.TabIndex = 14;
-            this.txtCantProd.Text = " ";
             // 
             // label9
             // 
