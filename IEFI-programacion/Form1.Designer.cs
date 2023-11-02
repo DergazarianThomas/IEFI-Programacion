@@ -33,6 +33,7 @@ namespace IEFI_programacion
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnReporteObra = new System.Windows.Forms.Button();
             this.lblObrasCargadas = new System.Windows.Forms.Label();
             this.dgvObras = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -51,6 +52,7 @@ namespace IEFI_programacion
             this.txtNombrObra = new System.Windows.Forms.TextBox();
             this.txtDirecObra = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnReporteDepo = new System.Windows.Forms.Button();
             this.lblDepoCargado = new System.Windows.Forms.Label();
             this.cbxVerObra = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -71,6 +73,7 @@ namespace IEFI_programacion
             this.txtDireccDepo = new System.Windows.Forms.TextBox();
             this.dgvDepo = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnReporteProd = new System.Windows.Forms.Button();
             this.lblProdCargados = new System.Windows.Forms.Label();
             this.cbxVerDepo = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -127,6 +130,7 @@ namespace IEFI_programacion
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(233)))), ((int)(((byte)(218)))));
+            this.tabPage1.Controls.Add(this.btnReporteObra);
             this.tabPage1.Controls.Add(this.lblObrasCargadas);
             this.tabPage1.Controls.Add(this.dgvObras);
             this.tabPage1.Controls.Add(this.panel2);
@@ -137,6 +141,19 @@ namespace IEFI_programacion
             this.tabPage1.Size = new System.Drawing.Size(1102, 584);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Obras";
+            // 
+            // btnReporteObra
+            // 
+            this.btnReporteObra.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnReporteObra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReporteObra.Font = new System.Drawing.Font("Cascadia Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReporteObra.Location = new System.Drawing.Point(881, 34);
+            this.btnReporteObra.Name = "btnReporteObra";
+            this.btnReporteObra.Size = new System.Drawing.Size(163, 30);
+            this.btnReporteObra.TabIndex = 19;
+            this.btnReporteObra.Text = "Generar Reporte";
+            this.btnReporteObra.UseVisualStyleBackColor = true;
+            this.btnReporteObra.Click += new System.EventHandler(this.btnReporteObra_Click);
             // 
             // lblObrasCargadas
             // 
@@ -333,6 +350,7 @@ namespace IEFI_programacion
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(233)))), ((int)(((byte)(218)))));
+            this.tabPage2.Controls.Add(this.btnReporteDepo);
             this.tabPage2.Controls.Add(this.lblDepoCargado);
             this.tabPage2.Controls.Add(this.cbxVerObra);
             this.tabPage2.Controls.Add(this.label13);
@@ -345,6 +363,19 @@ namespace IEFI_programacion
             this.tabPage2.Size = new System.Drawing.Size(1102, 584);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Depositos";
+            // 
+            // btnReporteDepo
+            // 
+            this.btnReporteDepo.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnReporteDepo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReporteDepo.Font = new System.Drawing.Font("Cascadia Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReporteDepo.Location = new System.Drawing.Point(574, 12);
+            this.btnReporteDepo.Name = "btnReporteDepo";
+            this.btnReporteDepo.Size = new System.Drawing.Size(163, 30);
+            this.btnReporteDepo.TabIndex = 19;
+            this.btnReporteDepo.Text = "Generar Reporte";
+            this.btnReporteDepo.UseVisualStyleBackColor = true;
+            this.btnReporteDepo.Click += new System.EventHandler(this.btnReporteDepo_Click);
             // 
             // lblDepoCargado
             // 
@@ -557,6 +588,7 @@ namespace IEFI_programacion
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(233)))), ((int)(((byte)(218)))));
+            this.tabPage3.Controls.Add(this.btnReporteProd);
             this.tabPage3.Controls.Add(this.lblProdCargados);
             this.tabPage3.Controls.Add(this.cbxVerDepo);
             this.tabPage3.Controls.Add(this.label18);
@@ -569,6 +601,19 @@ namespace IEFI_programacion
             this.tabPage3.Size = new System.Drawing.Size(1102, 584);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Productos";
+            // 
+            // btnReporteProd
+            // 
+            this.btnReporteProd.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnReporteProd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReporteProd.Font = new System.Drawing.Font("Cascadia Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReporteProd.Location = new System.Drawing.Point(208, 238);
+            this.btnReporteProd.Name = "btnReporteProd";
+            this.btnReporteProd.Size = new System.Drawing.Size(163, 30);
+            this.btnReporteProd.TabIndex = 18;
+            this.btnReporteProd.Text = "Generar Reporte";
+            this.btnReporteProd.UseVisualStyleBackColor = true;
+            this.btnReporteProd.Click += new System.EventHandler(this.btnReporteProd_Click);
             // 
             // lblProdCargados
             // 
@@ -817,9 +862,9 @@ namespace IEFI_programacion
             // 
             this.dgvProd.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(205)))), ((int)(((byte)(214)))));
             this.dgvProd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProd.Location = new System.Drawing.Point(7, 278);
+            this.dgvProd.Location = new System.Drawing.Point(112, 272);
             this.dgvProd.Name = "dgvProd";
-            this.dgvProd.Size = new System.Drawing.Size(1085, 298);
+            this.dgvProd.Size = new System.Drawing.Size(855, 282);
             this.dgvProd.TabIndex = 0;
             // 
             // errorProvider1
@@ -932,6 +977,9 @@ namespace IEFI_programacion
         private System.Windows.Forms.Label lblDepoCargado;
         private System.Windows.Forms.Label lblProdCargados;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button btnReporteProd;
+        private System.Windows.Forms.Button btnReporteObra;
+        private System.Windows.Forms.Button btnReporteDepo;
     }
 }
 

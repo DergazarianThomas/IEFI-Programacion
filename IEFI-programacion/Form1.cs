@@ -13,6 +13,10 @@ using System.Windows.Forms;
 using CapaDatos;
 using CapaNegocios;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 
 namespace IEFI_programacion
 {
@@ -675,6 +679,81 @@ namespace IEFI_programacion
         }
 
 
+        private void CrearReportePdf(DataGridView dataGridView, string outputPath)
+        {
+            PdfWriter writer = new PdfWriter(outputPath);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document doc = new Document(pdf);
+
+            // Crea la tabla con las columnas que tenga el dataGridView
+            iText.Layout.Element.Table pdfTable = new iText.Layout.Element.Table(dataGridView.Columns.Count);
+
+            // Añade titulos
+            foreach (DataGridViewColumn column in dataGridView.Columns)
+            {
+                pdfTable.AddCell(new Cell().Add(new Paragraph(column.HeaderText)));
+            }
+
+            // Añade los datos del DataGridView
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    // Valida si es nulo
+                    if (cell != null && cell.Value != null)
+                    {
+                        pdfTable.AddCell(new Cell().Add(new Paragraph(cell.Value.ToString())));
+                    }
+                    else
+                    {
+                        // En caso de que sea null
+                        pdfTable.AddCell(new Cell().Add(new Paragraph("N/A")));
+                    }
+                }
+            }
+
+            pdfTable.SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
+            // Añade la tabla al documento
+            doc.Add(pdfTable);
+
+            doc.Close();
+        }
+
+        private void btnReporteProd_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF Files|*.pdf";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string outputPath = saveFileDialog.FileName;
+                CrearReportePdf(dgvProd, outputPath);
+                MessageBox.Show("Reporte generado exitosamente!");
+            }
+        }
+
+        private void btnReporteObra_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF Files|*.pdf";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string outputPath = saveFileDialog.FileName;
+                CrearReportePdf(dgvObras, outputPath);
+                MessageBox.Show("Reporte generado exitosamente!");
+            }
+        }
+
+        private void btnReporteDepo_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF Files|*.pdf";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string outputPath = saveFileDialog.FileName;
+                CrearReportePdf(dgvDepo, outputPath);
+                MessageBox.Show("Reporte generado exitosamente!");
+            }
+        }
     }
     
 }
