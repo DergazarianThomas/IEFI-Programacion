@@ -583,7 +583,7 @@ namespace IEFI_programacion
 
             if (String.IsNullOrEmpty(txtBorrProd.Text))
             {
-                errorProvider1.SetError(txtBorrProd, ERROR_NUM_NEC);
+                errorProvider1.SetError(txtBorrProd, ERROR_COD_NEC);
                 error = true;
             }
 
@@ -644,15 +644,9 @@ namespace IEFI_programacion
                 error = true;
             }
 
-            if (String.IsNullOrEmpty(txtDescrProd.Text))
-            {
-                errorProvider1.SetError(txtDescrProd, ERROR_DIR_NEC);
-                error = true;
-            }
-
             if (String.IsNullOrEmpty(txtCantProd.Text))
             {
-                errorProvider1.SetError(txtDescrProd, ERROR_DIR_NEC);
+                errorProvider1.SetError(txtCantProd, ERROR_NUM_NEC);
                 error = true;
             }
 

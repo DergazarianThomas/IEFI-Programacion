@@ -12,10 +12,10 @@ namespace CapaDatos
 	{
 		protected OleDbConnection conexion;
 		//protected string cadenaConexion = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=E:\VS22\IEFI-programacion\IEFI-Programacion.accdb";
-		//protected string cadenaConexion = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Ramiro\source\repos\IEFI-programacion\IEFI-Programacion.accdb";
+		protected string cadenaConexion = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Ramiro\source\repos\IEFI-programacion\IEFI-Programacion.accdb";
 		//protected string cadenaConexion = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source = F:\VS22\IEFI-Programacion\IEFI-Programacion.accdb";
-		protected string cadenaConexion = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Usuario\source\repos\IEFI-programacion\IEFI-Programacion.accdb";
-        public DatosConexion()
+		//protected string cadenaConexion = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Usuario\source\repos\IEFI-programacion\IEFI-Programacion.accdb";
+		public DatosConexion()
 		{
 			conexion = new OleDbConnection(cadenaConexion);
 		}
