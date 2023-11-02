@@ -719,7 +719,6 @@ namespace IEFI_programacion
                 pdfTable.AddCell(new Cell().Add(new Paragraph(column.HeaderText)));
             }
 
-            pdfTable.
 
             // Añade los datos del DataGridView
             foreach (DataGridViewRow row in dataGridView.Rows)
