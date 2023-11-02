@@ -24,7 +24,9 @@ namespace IEFI_programacion
         const string ERROR_NUM_NEC = "Numero Necesario";
         const string ERROR_NOM_NEC = "Nombre necesario";
         const string ERROR_DIR_NEC = "Direccion necesaria";
+        const string ERROR_COD_NEC = "Codigo necesario";
         const string ERROR_INEXISTENTE = "El elemento no existe";
+        
 
         #endregion
 
@@ -614,7 +616,7 @@ namespace IEFI_programacion
             // Validar campos vacios
             if (String.IsNullOrEmpty(txtCodProd.Text))
             {
-                errorProvider1.SetError(txtCodProd, ERROR_NUM_NEC);
+                errorProvider1.SetError(txtCodProd, ERROR_COD_NEC);
                 error = true;
             }
 
