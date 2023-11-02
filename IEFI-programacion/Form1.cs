@@ -95,12 +95,12 @@ namespace IEFI_programacion
         {
             dgvProd.Rows.Clear();
             DataSet ds = new DataSet();
-            ds = objNegProds.listadoProductos("Todos");
+            ds = objNegProds.listadoProductos(Convert.ToString(cbxVerDepo.SelectedValue));
             if (ds.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    dgvObras.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString());
+                    dgvProd.Rows.Add(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString());
                 }
             }
             else
@@ -170,6 +170,7 @@ namespace IEFI_programacion
             cbxVerDepo.DisplayMember = "NombreDeposito";
             cbxVerDepo.DataSource = objNegDepositos.ObtenerDepositos();
         }
+
         #endregion
 
         #region logica_botones
@@ -236,6 +237,7 @@ namespace IEFI_programacion
             }
             LlenarCombosDepo();
         }
+
         private void btnBorrObra_Click(object sender, EventArgs e)
         {
             if (!validarBorrarObra())
@@ -354,6 +356,97 @@ namespace IEFI_programacion
             }
         }
 
+        private void btnAgregarProd_Click(object sender, EventArgs e)
+        {
+            if (!ValidarProducto())
+            {
+                if (ValidarCodigoUnicoProd(int.Parse(txtCodProd.Text)) == false)
+                {
+                    errorProvider1.SetError(txtCodProd, ERROR_NUM);
+                }
+                else
+                {
+                    int nGrabados = -1;
+
+                    NuevoProd = new Producto(int.Parse(txtCodProd.Text), txtNombrProd.Text, txtDescrProd.Text, chbEstadoProd.Checked, int.Parse(txtCantProd.Text), Convert.ToInt32(cbxVerDepo.SelectedValue));
+
+                    nGrabados = objNegProds.abmProductos("Alta", NuevoProd);
+
+                    if (nGrabados == -1)
+                    {
+                        MessageBox.Show("No se pudo cargar el Producto en el sistema");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El Producto se guardo con éxito.");
+                       LlenarDGVProd();
+                        LimpiarPantalla();
+                      
+                    }
+
+                }
+            }
+     
+        }
+
+        private void btnModProd_Click(object sender, EventArgs e)
+        {
+            if (!ValidarProducto())
+            {
+                if (ValidarCodigoUnicoProd(int.Parse(txtCodProd.Text)))
+                {
+                    errorProvider1.SetError(txtCodProd, ERROR_INEXISTENTE);
+                }
+                else
+                {
+                    int nResultado = -1;
+
+                    NuevoProd = new Producto(int.Parse(txtCodProd.Text), txtNombrProd.Text, txtDescrProd.Text, chbEstadoProd.Checked, int.Parse(txtCantProd.Text), Convert.ToInt32(cbxVerDepo.SelectedValue));
+
+                    nResultado = objNegProds.abmProductos("Modificar", NuevoProd); //invoco a la capa de negocio
+
+                    if (nResultado != 0 || nResultado != -1)
+                    {
+                        MessageBox.Show("El Producto fue modificado con éxito", "Aviso");
+                        LimpiarPantalla();
+                        LlenarDGVProd();
+                        LlenarDGVProd();
+
+                        txtCodProd.Enabled = true;
+                    }
+                    else
+                        MessageBox.Show("Se produjo un error al intentar modificar el producto", "Error");
+                }
+            }
+
+        }
+
+        private void btnBorrarProd_Click(object sender, EventArgs e)
+        {
+            if (!validarBorrarProd())
+            {
+                if (ValidarCodigoUnicoProd(int.Parse(txtBorrProd.Text)))
+                {
+                    errorProvider1.SetError(txtBorrProd, ERROR_INEXISTENTE);
+                }
+                else
+                {
+                    DialogResult resultado = MessageBox.Show("¿Está seguro que desea eliminar el Producto numero " + txtBorrProd.Text + "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultado == DialogResult.Yes)
+                    {
+                        int nGrabados = -1;
+                        NuevoProd = new Producto(int.Parse(txtBorrProd.Text));
+                        nGrabados = objNegProds.abmProductos("Borrar", NuevoProd);
+                        LlenarDGVProd();
+                        txtBorrProd.Text = "";
+
+                    }
+                    LlenarCombosDepo();
+                    errorProvider1.Clear();
+                    LlenarDGVProd();
+                }
+            }
+        }
         #endregion
 
         #region validaciones
@@ -416,6 +509,18 @@ namespace IEFI_programacion
             return true;
         }
 
+        private bool ValidarCodigoUnicoProd(int codigo)
+        {
+            foreach (DataGridViewRow row in dgvProd.Rows)
+            {
+                if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == codigo.ToString())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private bool validarBorrarObra()
         {
             bool error = false;
@@ -447,6 +552,24 @@ namespace IEFI_programacion
             if (Regex.IsMatch(txtBorrDepo.Text, "[^0-9]"))
             {
                 errorProvider1.SetError(txtBorrDepo, ERROR_SOLO_NUM);
+                error = true;
+            }
+            return error;
+        }
+
+        private bool validarBorrarProd()
+        {
+            bool error = false;
+
+            if (String.IsNullOrEmpty(txtBorrProd.Text))
+            {
+                errorProvider1.SetError(txtBorrProd, ERROR_NUM_NEC);
+                error = true;
+            }
+
+            if (Regex.IsMatch(txtBorrProd.Text, "[^0-9]"))
+            {
+                errorProvider1.SetError(txtBorrProd, ERROR_SOLO_NUM);
                 error = true;
             }
             return error;
@@ -484,6 +607,50 @@ namespace IEFI_programacion
             return error;
         }
 
+        private bool ValidarProducto()
+        {
+            errorProvider1.Clear();
+            bool error = false;
+            // Validar campos vacios
+            if (String.IsNullOrEmpty(txtCodProd.Text))
+            {
+                errorProvider1.SetError(txtCodProd, ERROR_NUM_NEC);
+                error = true;
+            }
+
+            if (String.IsNullOrEmpty(txtNombrProd.Text))
+            {
+                errorProvider1.SetError(txtNombrProd, ERROR_NOM_NEC);
+                error = true;
+            }
+
+            if (String.IsNullOrEmpty(txtDescrProd.Text))
+            {
+                errorProvider1.SetError(txtDescrProd, ERROR_DIR_NEC);
+                error = true;
+            }
+
+            if (String.IsNullOrEmpty(txtCantProd.Text))
+            {
+                errorProvider1.SetError(txtDescrProd, ERROR_DIR_NEC);
+                error = true;
+            }
+
+            if (Regex.IsMatch(txtCantProd.Text, "[^0-9]"))
+            {
+                errorProvider1.SetError(txtCantProd, ERROR_SOLO_NUM);
+                error = true;
+            }
+            if (Regex.IsMatch(txtCodProd.Text, "[^0-9]"))
+            {
+                errorProvider1.SetError(txtCodProd, ERROR_SOLO_NUM);
+                error = true;
+            }
+
+
+            return error;
+        }
+
         #endregion
 
 
@@ -494,10 +661,15 @@ namespace IEFI_programacion
             txtDirecObra.Text = "";
         }
 
-        // evento para llenar dgvDeposito cuando combobox cambia
+        // evento para llenar dgvDeposito y dgvProductos cuando combobox cambia
         private void cbxVerObra_SelectionChangeCommitted(object sender, EventArgs e)
         {
             LlenarDGVDepo();
+        }
+
+        private void cbxVerDepo_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            LlenarDGVProd();
         }
 
 

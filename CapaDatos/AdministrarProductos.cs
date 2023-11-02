@@ -17,14 +17,14 @@ namespace CapaDatos
 			string orden = string.Empty; 
 			if (accion == "Alta")
 			{
-				orden = $"insert into Productos (Codigo, NombreProducto, Descripcion, Estado, Cantidad, IdDeposito) values ({objProducto.Codigo}, '{objProducto.NombreProducto}', '{objProducto.Descripcion} ',{objProducto.Estado} , {objProducto.Cantidad});";
+				orden = $"insert into Productos (Codigo, NombreProducto, Descripcion, Estado, Cantidad, IdDeposito) values ({objProducto.Codigo}, '{objProducto.NombreProducto}', '{objProducto.Descripcion} ',{objProducto.Estado} , {objProducto.Cantidad}, {objProducto.IdDeposito});";
 			}
 			
 
 			if (accion == "Modificar")
 				
 
-				orden = $"update Productos set NombreProducto='{objProducto.NombreProducto} ', Descripcion=' {objProducto.Descripcion}', Estado={objProducto.Estado}, Cantidad={objProducto.Cantidad} WHERE Codigo Like '%{objProducto.Codigo}%';";
+				orden = $"update Productos set NombreProducto='{objProducto.NombreProducto} ', Descripcion=' {objProducto.Descripcion}', Estado={objProducto.Estado}, Cantidad={objProducto.Cantidad}, IdDeposito={objProducto.IdDeposito} WHERE Codigo Like '%{objProducto.Codigo}%';";
 
 
 			if (accion == "Borrar")
@@ -53,7 +53,7 @@ namespace CapaDatos
 		{
 			string orden = string.Empty;
 			if (cual != "Todos")
-				orden = "select * from Productos where IdProducto = " + int.Parse(cual) + ";";
+				orden = "select p.Codigo, p.NombreProducto, p.Descripcion, p.Estado, p.Cantidad, d.NombreDeposito from Productos p, Depositos d where p.IdDeposito = " + int.Parse(cual) + " and p.IdDeposito = d.IdDeposito;";
 			else
 				orden = "select * from Productos;";
 			OleDbCommand cmd = new OleDbCommand(orden, conexion);

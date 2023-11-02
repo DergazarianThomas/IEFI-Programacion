@@ -25,7 +25,12 @@ namespace CapaDatos
 		public Producto()
 		{ }
 
-		public Producto(int IdProducto, int Codigo, string NombreProducto, string Descripcion, bool Estado, int Cantidad, int IdDeposito)
+		public Producto(int Codigo)
+		{
+            this.codigo = Codigo;
+        }
+
+        public Producto(int IdProducto, int Codigo, string NombreProducto, string Descripcion, bool Estado, int Cantidad, int IdDeposito)
 		{
 			this.idProducto = IdProducto;
 			this.codigo = Codigo;

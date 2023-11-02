@@ -75,9 +75,9 @@ namespace IEFI_programacion
             this.cbxVerDepo = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnBorrarProd = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.txtBorrProd = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.cbxDepo = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -86,11 +86,11 @@ namespace IEFI_programacion
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnModProd = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txtCodProd = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnAgregarProd = new System.Windows.Forms.Button();
             this.txtNombrProd = new System.Windows.Forms.TextBox();
             this.txtDescrProd = new System.Windows.Forms.TextBox();
             this.dgvProd = new System.Windows.Forms.DataGridView();
@@ -587,6 +587,7 @@ namespace IEFI_programacion
             this.cbxVerDepo.Name = "cbxVerDepo";
             this.cbxVerDepo.Size = new System.Drawing.Size(84, 21);
             this.cbxVerDepo.TabIndex = 19;
+            this.cbxVerDepo.SelectionChangeCommitted += new System.EventHandler(this.cbxVerDepo_SelectionChangeCommitted);
             // 
             // label18
             // 
@@ -603,27 +604,28 @@ namespace IEFI_programacion
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.button6);
+            this.panel4.Controls.Add(this.btnBorrarProd);
             this.panel4.Controls.Add(this.label10);
-            this.panel4.Controls.Add(this.textBox10);
+            this.panel4.Controls.Add(this.txtBorrProd);
             this.panel4.Location = new System.Drawing.Point(658, 18);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(320, 207);
             this.panel4.TabIndex = 14;
             // 
-            // button6
+            // btnBorrarProd
             // 
-            this.button6.BackColor = System.Drawing.Color.Transparent;
-            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Cascadia Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button6.Location = new System.Drawing.Point(123, 128);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(82, 30);
-            this.button6.TabIndex = 10;
-            this.button6.Text = "Borrar";
-            this.button6.UseVisualStyleBackColor = false;
+            this.btnBorrarProd.BackColor = System.Drawing.Color.Transparent;
+            this.btnBorrarProd.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnBorrarProd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBorrarProd.Font = new System.Drawing.Font("Cascadia Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBorrarProd.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnBorrarProd.Location = new System.Drawing.Point(123, 128);
+            this.btnBorrarProd.Name = "btnBorrarProd";
+            this.btnBorrarProd.Size = new System.Drawing.Size(82, 30);
+            this.btnBorrarProd.TabIndex = 10;
+            this.btnBorrarProd.Text = "Borrar";
+            this.btnBorrarProd.UseVisualStyleBackColor = false;
+            this.btnBorrarProd.Click += new System.EventHandler(this.btnBorrarProd_Click);
             // 
             // label10
             // 
@@ -636,13 +638,13 @@ namespace IEFI_programacion
             this.label10.TabIndex = 7;
             this.label10.Text = "Codigo";
             // 
-            // textBox10
+            // txtBorrProd
             // 
-            this.textBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox10.Location = new System.Drawing.Point(167, 53);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(69, 24);
-            this.textBox10.TabIndex = 6;
+            this.txtBorrProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBorrProd.Location = new System.Drawing.Point(167, 53);
+            this.txtBorrProd.Name = "txtBorrProd";
+            this.txtBorrProd.Size = new System.Drawing.Size(69, 24);
+            this.txtBorrProd.TabIndex = 6;
             // 
             // panel3
             // 
@@ -655,11 +657,11 @@ namespace IEFI_programacion
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.label5);
-            this.panel3.Controls.Add(this.button4);
+            this.panel3.Controls.Add(this.btnModProd);
             this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.txtCodProd);
             this.panel3.Controls.Add(this.label7);
-            this.panel3.Controls.Add(this.button5);
+            this.panel3.Controls.Add(this.btnAgregarProd);
             this.panel3.Controls.Add(this.txtNombrProd);
             this.panel3.Controls.Add(this.txtDescrProd);
             this.panel3.Location = new System.Drawing.Point(26, 18);
@@ -703,6 +705,7 @@ namespace IEFI_programacion
             this.txtCantProd.Name = "txtCantProd";
             this.txtCantProd.Size = new System.Drawing.Size(78, 24);
             this.txtCantProd.TabIndex = 14;
+            this.txtCantProd.Text = " ";
             // 
             // label9
             // 
@@ -737,17 +740,18 @@ namespace IEFI_programacion
             this.label5.TabIndex = 4;
             this.label5.Text = "Producto";
             // 
-            // button4
+            // btnModProd
             // 
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Cascadia Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(255, 165);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(102, 30);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Modificar";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnModProd.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnModProd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnModProd.Font = new System.Drawing.Font("Cascadia Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModProd.Location = new System.Drawing.Point(255, 165);
+            this.btnModProd.Name = "btnModProd";
+            this.btnModProd.Size = new System.Drawing.Size(102, 30);
+            this.btnModProd.TabIndex = 9;
+            this.btnModProd.Text = "Modificar";
+            this.btnModProd.UseVisualStyleBackColor = true;
+            this.btnModProd.Click += new System.EventHandler(this.btnModProd_Click);
             // 
             // label6
             // 
@@ -779,19 +783,20 @@ namespace IEFI_programacion
             this.label7.TabIndex = 3;
             this.label7.Text = "Codigo";
             // 
-            // button5
+            // btnAgregarProd
             // 
-            this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Cascadia Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button5.Location = new System.Drawing.Point(141, 165);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(82, 30);
-            this.button5.TabIndex = 8;
-            this.button5.Text = "Agregar";
-            this.button5.UseVisualStyleBackColor = false;
+            this.btnAgregarProd.BackColor = System.Drawing.Color.Transparent;
+            this.btnAgregarProd.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnAgregarProd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarProd.Font = new System.Drawing.Font("Cascadia Mono", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarProd.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnAgregarProd.Location = new System.Drawing.Point(141, 165);
+            this.btnAgregarProd.Name = "btnAgregarProd";
+            this.btnAgregarProd.Size = new System.Drawing.Size(82, 30);
+            this.btnAgregarProd.TabIndex = 8;
+            this.btnAgregarProd.Text = "Agregar";
+            this.btnAgregarProd.UseVisualStyleBackColor = false;
+            this.btnAgregarProd.Click += new System.EventHandler(this.btnAgregarProd_Click);
             // 
             // txtNombrProd
             // 
@@ -885,20 +890,20 @@ namespace IEFI_programacion
 		private System.Windows.Forms.DataGridView dgvProd;
 		private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.Button button4;
+		private System.Windows.Forms.Button btnModProd;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.TextBox txtCodProd;
 		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.Button button5;
+		private System.Windows.Forms.Button btnAgregarProd;
 		private System.Windows.Forms.TextBox txtNombrProd;
 		private System.Windows.Forms.TextBox txtDescrProd;
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.TextBox txtCantProd;
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.Panel panel4;
-		private System.Windows.Forms.Button button6;
+		private System.Windows.Forms.Button btnBorrarProd;
 		private System.Windows.Forms.Label label10;
-		private System.Windows.Forms.TextBox textBox10;
+		private System.Windows.Forms.TextBox txtBorrProd;
         private System.Windows.Forms.DateTimePicker dtpFechaObra;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox chbEstadoProd;
