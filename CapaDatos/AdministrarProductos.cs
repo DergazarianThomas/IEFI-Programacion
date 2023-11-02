@@ -52,10 +52,11 @@ namespace CapaDatos
 		public DataSet listadoProductos(string cual)
 		{
 			string orden = string.Empty;
-			if (cual != "Todos")
-				orden = "select p.Codigo, p.NombreProducto, p.Descripcion, p.Estado, p.Cantidad, d.NombreDeposito from Productos p, Depositos d where p.IdDeposito = " + int.Parse(cual) + " and p.IdDeposito = d.IdDeposito;";
+			if (cual == "")
+				orden = "select Codigo, NombreProducto, Descripcion, Estado, Cantidad, IdDeposito from Productos";
+
 			else
-				orden = "select * from Productos;";
+				orden = "select p.Codigo, p.NombreProducto, p.Descripcion, p.Estado, p.Cantidad, d.NombreDeposito from Productos p, Depositos d where p.IdDeposito = " + int.Parse(cual) + " and p.IdDeposito = d.IdDeposito;"; 
 			OleDbCommand cmd = new OleDbCommand(orden, conexion);
 			DataSet ds = new DataSet();
 			OleDbDataAdapter da = new OleDbDataAdapter();

@@ -156,22 +156,28 @@ namespace IEFI_programacion
         #region llenado_comboboxs
         void LlenarCombosObra()
         {
+            cbxVerObra.SelectedIndex = -1;
             cbxVerObra.ValueMember = "IdObra";
             cbxVerObra.DisplayMember = "NombreObra";
             cbxVerObra.DataSource = objNegObras.ObtenerObras();
 
+
+            cbxNumObra.SelectedIndex = -1;
             cbxNumObra.ValueMember = "IdObra";
             cbxNumObra.DisplayMember = "NombreObra";
             cbxNumObra.DataSource = objNegObras.ObtenerObras();
+            cbxNumObra.SelectedIndex = -1;
 
             
         }
         void LlenarCombosDepo()
         {
+            cbxDepo.SelectedIndex = -1;
             cbxDepo.ValueMember = "IdDeposito";
             cbxDepo.DisplayMember = "NombreDeposito";
             cbxDepo.DataSource = objNegDepositos.ObtenerDepositos();
 
+            cbxVerDepo.SelectedIndex = -1;
             cbxVerDepo.ValueMember = "IdDeposito";
             cbxVerDepo.DisplayMember = "NombreDeposito";
             cbxVerDepo.DataSource = objNegDepositos.ObtenerDepositos();
@@ -264,9 +270,13 @@ namespace IEFI_programacion
                         txtBorrObra.Text = "";
 
                     }
+
                     LlenarCombosObra();
                     errorProvider1.Clear();
                     LlenarDGVDepo();
+                    LlenarCombosDepo();
+                    LlenarDGVProd();
+                    LimpiarPantalla();
                 }
             }
 
@@ -291,10 +301,11 @@ namespace IEFI_programacion
                     if (nResultado != 0 || nResultado != -1)
                     {
                         MessageBox.Show("La obra fue modificada con éxito", "Aviso");
+
                         LimpiarPantalla();
                         LlenarDGVObras();
                         LlenarCombosObra();
-
+                        LlenarCombosDepo();
                         txtNumObra.Enabled = true;
                     }
                     else
@@ -326,6 +337,7 @@ namespace IEFI_programacion
                         LimpiarPantalla();
                         LlenarDGVDepo();
                         LlenarCombosDepo();
+                        LimpiarPantalla();
 
                         txtNumrDeposito.Enabled = true;
                     }
@@ -358,6 +370,7 @@ namespace IEFI_programacion
                     LlenarCombosDepo();
                     errorProvider1.Clear();
                     LlenarDGVProd();
+                    LimpiarPantalla();
                 }
             }
         }
@@ -447,6 +460,7 @@ namespace IEFI_programacion
                         txtBorrProd.Text = "";
 
                     }
+                    LimpiarPantalla();
                     LlenarCombosDepo();
                     errorProvider1.Clear();
                     LlenarDGVProd();
@@ -665,6 +679,17 @@ namespace IEFI_programacion
             txtNumObra.Text = "";
             txtNombrObra.Text = "";
             txtDirecObra.Text = "";
+            txtBorrObra.Text = "";
+            txtNombrDepo.Text = "";
+            txtNumrDeposito.Text = "";
+            txtDireccDepo.Text = "";
+            txtBorrDepo.Text = "";
+            txtNombrProd.Text = "";
+            txtDescrProd.Text = "";
+            txtCantProd.Text = "";
+            txtBorrProd.Text = "";
+            txtCodProd.Text = "";
+            chbEstadoProd.Checked = false;
         }
 
         // evento para llenar dgvDeposito y dgvProductos cuando combobox cambia
@@ -694,6 +719,8 @@ namespace IEFI_programacion
                 pdfTable.AddCell(new Cell().Add(new Paragraph(column.HeaderText)));
             }
 
+            pdfTable.
+
             // Añade los datos del DataGridView
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
@@ -707,7 +734,7 @@ namespace IEFI_programacion
                     else
                     {
                         // En caso de que sea null
-                        pdfTable.AddCell(new Cell().Add(new Paragraph("N/A")));
+                        pdfTable.AddCell(new Cell().Add(new Paragraph("")));
                     }
                 }
             }
